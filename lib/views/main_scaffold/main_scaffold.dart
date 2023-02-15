@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/views/home/home.screen.dart';
 import 'package:mal_clone/views/setting/setting.screen.dart';
@@ -25,7 +26,14 @@ class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMix
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) => setState(() => currentPageIndex = index),
+        onDestinationSelected: (int index) {
+          if (index == 2) {
+            Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+            return;
+          }
+
+          setState(() => currentPageIndex = index);
+        },
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
@@ -37,6 +45,12 @@ class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMix
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings_rounded),
             label: AppLocale.navigationLabelSetting,
+            tooltip: "",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.color_lens_rounded),
+            selectedIcon: Icon(Icons.color_lens_rounded),
+            label: "Theme Mode (Test)",
             tooltip: "",
           ),
         ],

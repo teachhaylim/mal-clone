@@ -15,6 +15,7 @@ dependencies:
   get: ^4.6.5
   logger: any
   url_launcher: ^6.1.9
+  cached_network_image: ^3.2.3
 
   #Platform Info
   package_info_plus: ^3.0.3

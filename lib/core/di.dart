@@ -3,10 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:mal_clone/core/config/app_config.dart';
 import 'package:mal_clone/core/network/api_request.dart';
 import 'package:mal_clone/domain/api/anime.api.dart';
+import 'package:mal_clone/domain/api/main.api.dart';
 import 'package:mal_clone/domain/api/season.api.dart';
 import 'package:mal_clone/domain/repo/anime.repo.dart';
+import 'package:mal_clone/domain/repo/main.repo.dart';
 import 'package:mal_clone/domain/repo/season.repo.dart';
 import 'package:mal_clone/domain/repo_impl/anime.repo.impl.dart';
+import 'package:mal_clone/domain/repo_impl/main.repo.impl.dart';
 import 'package:mal_clone/domain/repo_impl/season.repo.impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -26,7 +29,9 @@ Future<void> initializeApp() async {
 
   getIt.registerLazySingleton<AnimeApi>(() => AnimeApi(dio: getIt()));
   getIt.registerLazySingleton<SeasonApi>(() => SeasonApi(dio: getIt()));
+  getIt.registerLazySingleton<MainApi>(() => MainApi(dio: getIt()));
 
   getIt.registerLazySingleton<AnimeRepo>(() => AnimeRepoImpl(animeApi: getIt()));
   getIt.registerLazySingleton<SeasonRepo>(() => SeasonRepoImpl(seasonApi: getIt()));
+  getIt.registerLazySingleton<MainRepo>(() => MainRepoImpl(mainApi: getIt()));
 }

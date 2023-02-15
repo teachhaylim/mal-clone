@@ -12,6 +12,5 @@ class GenericEntryDto with _$GenericEntryDto {
     String? url,
   }) = _GenericEntryDto;
 
-  factory GenericEntryDto.fromJson(Map<String, dynamic> json) =>
-      _$GenericEntryDtoFromJson(json);
+  factory GenericEntryDto.fromJson(Map<String, dynamic> json) => _$GenericEntryDtoFromJson(json);
 }

@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/error/custom_error.dart';
+
+part 'api_response.freezed.dart';
 
 abstract class ApiResponse<T> {
   static ApiResponse<T> parseDioError<T>({required DioError error}) {
@@ -39,11 +42,14 @@ abstract class ApiResponse<T> {
   }
 }
 
-class ApiErrorResponse<T> extends ApiResponse<T> {
-  final int statusCode;
-  final String message;
+@Freezed(genericArgumentFactories: true)
+class ApiErrorResponse<T> extends ApiResponse<T> with _$ApiErrorResponse<T> {
+  ApiErrorResponse._();
 
-  ApiErrorResponse({required this.message, this.statusCode = -1});
+  factory ApiErrorResponse({
+    @Default(-1) int statusCode,
+    required String message,
+  }) = _ApiErrorResponse;
 
   CustomError get toCustomError {
     return CustomError(
@@ -53,8 +59,9 @@ class ApiErrorResponse<T> extends ApiResponse<T> {
   }
 }
 
-class ApiSuccessResponse<T> extends ApiResponse<T> {
-  final T data;
-
-  ApiSuccessResponse({required this.data});
+@Freezed(genericArgumentFactories: true)
+class ApiSuccessResponse<T> extends ApiResponse<T> with _$ApiSuccessResponse<T> {
+  factory ApiSuccessResponse({
+    required T data,
+  }) = _ApiSuccessResponse;
 }
