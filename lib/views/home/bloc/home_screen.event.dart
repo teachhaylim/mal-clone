@@ -18,3 +18,7 @@ class HomeScreenGetSeasonalAnimeEvent extends HomeScreenEvent {
   @override
   List get props => [newSelectedSeason];
 }
+
+class HomeScreenGetTopAnimeEvent extends HomeScreenEvent {
+  const HomeScreenGetTopAnimeEvent();
+}

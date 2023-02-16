@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
 import 'package:mal_clone/views/home/section/genre.section.dart';
 import 'package:mal_clone/views/home/section/seasonal.section.dart';
+import 'package:mal_clone/views/home/section/top_anime.section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 HomeGenreSection(),
                 SizedBox(height: 8),
                 HomeSeasonalSection(),
+                SizedBox(height: 8),
+                HomeTopAnimeSection(),
               ],
             ),
           ),

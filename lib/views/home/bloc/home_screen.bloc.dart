@@ -17,6 +17,7 @@ part "home_screen.state.dart";
 enum HomeScreenSectionEnum {
   genre,
   seasonalAnime,
+  topAnime,
 }
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
@@ -26,6 +27,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(const HomeScreenInitialState()) {
     on<HomeScreenGetGenresEvent>(_getGenres);
     on<HomeScreenGetSeasonalAnimeEvent>(_getSeasonalAnime, transformer: restartable());
+    on<HomeScreenGetTopAnimeEvent>(_getTopAnime, transformer: restartable());
   }
 
   void _getGenres(HomeScreenGetGenresEvent event, Emitter<HomeScreenState> emit) async {
@@ -50,5 +52,17 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     }
 
     return emit(HomeScreenSeasonalAnimeLoadedState(anime: (res as ApiSuccessResponse<BasePaginationResDto<AnimeDto>>).data.data));
+  }
+
+  void _getTopAnime(HomeScreenGetTopAnimeEvent event, Emitter<HomeScreenState> emit) async {
+    emit(const HomeScreenLoadingState(section: HomeScreenSectionEnum.topAnime));
+
+    final res = await _mainRepo.getTopAnime(limit: 20);
+
+    if (res is ApiErrorResponse) {
+      return emit(HomeScreenErrorState(error: (res as ApiErrorResponse).toCustomError, section: HomeScreenSectionEnum.topAnime));
+    }
+
+    return emit(HomeScreenTopAnimeLoadedState(anime: (res as ApiSuccessResponse<BasePaginationResDto<AnimeDto>>).data.data));
   }
 }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/locale/locale.dart';
-import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/data/enums/season.enum.dart';
-import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
+import 'package:mal_clone/views/home/components/list_item_horizontal.dart';
 
 class HomeSeasonalSection extends StatefulWidget {
   const HomeSeasonalSection({Key? key}) : super(key: key);
@@ -26,10 +24,6 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerPr
     tabController = TabController(vsync: this, length: SeasonEnum.values.length);
     homeScreenBloc = context.read<HomeScreenBloc>()..add(const HomeScreenGetSeasonalAnimeEvent());
     tabs = SeasonEnum.values.map((e) => Tab(text: e.toDisplayText)).toList();
-  }
-
-  void _onAnimeTap(AnimeDto anime) {
-    logger.i(anime);
   }
 
   @override
@@ -74,7 +68,13 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerPr
             buildWhen: (pre, cur) => cur is HomeScreenSeasonalAnimeLoadedState || (cur is HomeScreenLoadingState && cur.section == HomeScreenSectionEnum.seasonalAnime),
             builder: (context, state) {
               if (state is HomeScreenLoadingState && state.section == HomeScreenSectionEnum.seasonalAnime) {
-                return CustomSkeletonLoading.boxSkeleton(context: context, paddingLeft: 16, paddingRight: 16, rounded: 13);
+                return ListView.separated(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  separatorBuilder: (context, index) => const SizedBox(width: 16),
+                  itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(context: context, rounded: 13, width: 150),
+                );
               }
 
               if (state is HomeScreenSeasonalAnimeLoadedState) {
@@ -83,45 +83,7 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerPr
                   scrollDirection: Axis.horizontal,
                   itemCount: state.anime.length,
                   separatorBuilder: (context, index) => const SizedBox(height: 16),
-                  itemBuilder: (context, index) {
-                    final anime = state.anime[index];
-
-                    return GestureDetector(
-                      onTap: () => _onAnimeTap(anime),
-                      child: Card(
-                        child: Container(
-                          width: 140,
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex: 8,
-                                child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
-                              ),
-                              const SizedBox(height: 4),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  padding: const EdgeInsets.only(left: 8, right: 8),
-                                  child: Text(
-                                    state.anime[index].title ?? "",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                  itemBuilder: (context, index) => ListItemHorizontal(anime: state.anime[index]),
                 );
               }
 

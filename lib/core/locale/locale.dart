@@ -3,6 +3,7 @@ class AppLocale {
   static const String appName = "Flutter Playground 2";
 
   //! Common
+  static const String comingSoonMessage = "Coming soon";
 
   //! Error
 
@@ -24,4 +25,5 @@ class AppLocale {
   //! Home Screen
   static const String homeGenresText = "Genres";
   static const String homeSeasonalAnimeText = "Seasonal Anime";
+  static const String homeTopAnimeText = "Top 20 Anime of all time";
 }

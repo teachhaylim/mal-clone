@@ -35,6 +35,14 @@ class HomeScreenSeasonalAnimeLoadedState extends HomeScreenState {
   List get props => [anime];
 }
 
+class HomeScreenTopAnimeLoadedState extends HomeScreenState {
+  final List<AnimeDto> anime;
+  const HomeScreenTopAnimeLoadedState({required this.anime});
+
+  @override
+  List get props => [anime];
+}
+
 class HomeScreenErrorState extends HomeScreenState {
   final CustomError error;
   final HomeScreenSectionEnum section;
