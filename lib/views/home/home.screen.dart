@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
+import 'package:mal_clone/views/home/section/browse_by_airing_date.dart';
 import 'package:mal_clone/views/home/section/genre.section.dart';
+import 'package:mal_clone/views/home/section/main_banner.section.dart';
 import 'package:mal_clone/views/home/section/seasonal.section.dart';
 import 'package:mal_clone/views/home/section/top_anime.section.dart';
 
@@ -36,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: const [
+                HomeMainBanner(),
+                SizedBox(height: 8),
+                HomeBrowseByAiringDate(),
+                SizedBox(height: 8),
                 HomeGenreSection(),
                 SizedBox(height: 8),
                 HomeSeasonalSection(),

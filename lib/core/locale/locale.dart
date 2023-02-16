@@ -20,10 +20,12 @@ class AppLocale {
   //! Setting Screen
   static const String changeThemeText = "Change Theme";
   static const String aboutText = "About";
-  static const String madeWithText = "Made with ❤️ and lot of ☕️ by Teachhay Lim";
+  static const String madeWithText =
+      "Made with ❤️ and lot of ☕️ by Teachhay Lim";
 
   //! Home Screen
   static const String homeGenresText = "Genres";
   static const String homeSeasonalAnimeText = "Seasonal Anime";
   static const String homeTopAnimeText = "Top Anime of all time";
+  static const String homeBrowseByAiringDateText = "Browse by airing date";
 }

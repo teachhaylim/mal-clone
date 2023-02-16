@@ -20,7 +20,7 @@ class _HomeTopAnimeSectionState extends State<HomeTopAnimeSection> {
   @override
   void initState() {
     super.initState();
-    homeScreenBloc = context.read<HomeScreenBloc>()..add(const HomeScreenGetTopAnimeEvent());
+    homeScreenBloc = context.read<HomeScreenBloc>();
   }
 
   @override

@@ -18,6 +18,7 @@ enum HomeScreenSectionEnum {
   genre,
   seasonalAnime,
   topAnime,
+  animeRecommendation,
 }
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
@@ -27,7 +28,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc() : super(const HomeScreenInitialState()) {
     on<HomeScreenGetGenresEvent>(_getGenres);
     on<HomeScreenGetSeasonalAnimeEvent>(_getSeasonalAnime, transformer: restartable());
-    on<HomeScreenGetTopAnimeEvent>(_getTopAnime, transformer: restartable());
+    on<HomeScreenGetTopAnimeEvent>(_getTopAnime);
   }
 
   void _getGenres(HomeScreenGetGenresEvent event, Emitter<HomeScreenState> emit) async {
