@@ -1,8 +1,21 @@
 enum SeasonEnum {
   winter,
-  summer,
   spring,
+  summer,
   fall;
+
+  String get toDisplayText {
+    switch (this) {
+      case SeasonEnum.winter:
+        return "Winter";
+      case SeasonEnum.spring:
+        return "Spring";
+      case SeasonEnum.summer:
+        return "Summer";
+      case SeasonEnum.fall:
+        return "Fall";
+    }
+  }
 
   static SeasonEnum get currentSeason {
     final date = DateTime.now();
@@ -12,11 +25,11 @@ enum SeasonEnum {
     }
 
     if (date.month >= 4 && date.month <= 6) {
-      return SeasonEnum.summer;
+      return SeasonEnum.spring;
     }
 
     if (date.month >= 7 && date.month <= 9) {
-      return SeasonEnum.spring;
+      return SeasonEnum.summer;
     }
 
     return SeasonEnum.fall;

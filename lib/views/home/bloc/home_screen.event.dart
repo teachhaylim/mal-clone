@@ -12,5 +12,9 @@ class HomeScreenGetGenresEvent extends HomeScreenEvent {
 }
 
 class HomeScreenGetSeasonalAnimeEvent extends HomeScreenEvent {
-  const HomeScreenGetSeasonalAnimeEvent();
+  final SeasonEnum? newSelectedSeason;
+  const HomeScreenGetSeasonalAnimeEvent({this.newSelectedSeason});
+
+  @override
+  List get props => [newSelectedSeason];
 }

@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mal_clone/core/di.dart';
@@ -7,7 +8,6 @@ import 'package:mal_clone/data/enums/season.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
-import 'package:mal_clone/domain/repo/anime.repo.dart';
 import 'package:mal_clone/domain/repo/main.repo.dart';
 import 'package:mal_clone/domain/repo/season.repo.dart';
 
@@ -21,12 +21,11 @@ enum HomeScreenSectionEnum {
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final MainRepo _mainRepo = getIt<MainRepo>();
-  final AnimeRepo _animeRepo = getIt<AnimeRepo>();
   final SeasonRepo _seasonRepo = getIt<SeasonRepo>();
 
   HomeScreenBloc() : super(const HomeScreenInitialState()) {
     on<HomeScreenGetGenresEvent>(_getGenres);
-    on<HomeScreenGetSeasonalAnimeEvent>(_getSeasonalAnime);
+    on<HomeScreenGetSeasonalAnimeEvent>(_getSeasonalAnime, transformer: restartable());
   }
 
   void _getGenres(HomeScreenGetGenresEvent event, Emitter<HomeScreenState> emit) async {
@@ -44,7 +43,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   void _getSeasonalAnime(HomeScreenGetSeasonalAnimeEvent event, Emitter<HomeScreenState> emit) async {
     emit(const HomeScreenLoadingState(section: HomeScreenSectionEnum.seasonalAnime));
 
-    final res = await _seasonRepo.getSeasonByYearNSeason(year: DateTime.now().year.toString(), season: SeasonEnum.currentSeason);
+    final res = await _seasonRepo.getSeasonByYearNSeason(year: DateTime.now().year.toString(), season: event.newSelectedSeason ?? SeasonEnum.currentSeason);
 
     if (res is ApiErrorResponse) {
       return emit(HomeScreenErrorState(error: (res as ApiErrorResponse).toCustomError, section: HomeScreenSectionEnum.seasonalAnime));

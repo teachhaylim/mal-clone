@@ -6,6 +6,7 @@ import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/data/enums/season.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
+import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 
 class HomeSeasonalSection extends StatefulWidget {
   const HomeSeasonalSection({Key? key}) : super(key: key);
@@ -14,11 +15,17 @@ class HomeSeasonalSection extends StatefulWidget {
   State<HomeSeasonalSection> createState() => _HomeSeasonalSectionState();
 }
 
-class _HomeSeasonalSectionState extends State<HomeSeasonalSection> {
+class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerProviderStateMixin {
+  late final TabController tabController;
+  late HomeScreenBloc homeScreenBloc;
+  late List<Widget> tabs;
+
   @override
   void initState() {
     super.initState();
-    context.read<HomeScreenBloc>().add(const HomeScreenGetSeasonalAnimeEvent());
+    tabController = TabController(vsync: this, length: SeasonEnum.values.length);
+    homeScreenBloc = context.read<HomeScreenBloc>()..add(const HomeScreenGetSeasonalAnimeEvent());
+    tabs = SeasonEnum.values.map((e) => Tab(text: e.toDisplayText)).toList();
   }
 
   void _onAnimeTap(AnimeDto anime) {
@@ -31,31 +38,43 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.only(left: 16, bottom: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 AppLocale.homeSeasonalAnimeText,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 18),
               ),
+              const SizedBox(width: 8),
               Text(
-                "${DateTime.now().year} - ${SeasonEnum.currentSeason.name.toUpperCase()}",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
+                "${DateTime.now().year}",
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 14).copyWith(color: Colors.grey.shade400),
               ),
             ],
           ),
         ),
+        Container(
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          child: TabBar(
+            controller: tabController,
+            indicatorWeight: 3,
+            indicatorColor: Theme.of(context).primaryColor,
+            indicatorSize: TabBarIndicatorSize.tab,
+            labelColor: Theme.of(context).textTheme.titleSmall?.color,
+            labelStyle: Theme.of(context).textTheme.titleSmall,
+            onTap: (index) => homeScreenBloc.add(HomeScreenGetSeasonalAnimeEvent(newSelectedSeason: SeasonEnum.values[index])),
+            tabs: tabs,
+          ),
+        ),
+        const SizedBox(height: 8),
         SizedBox(
-          height: 220,
+          height: 250,
           child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
             buildWhen: (pre, cur) => cur is HomeScreenSeasonalAnimeLoadedState || (cur is HomeScreenLoadingState && cur.section == HomeScreenSectionEnum.seasonalAnime),
             builder: (context, state) {
               if (state is HomeScreenLoadingState && state.section == HomeScreenSectionEnum.seasonalAnime) {
-                return Container(
-                  height: double.infinity,
-                  color: Colors.grey.shade700,
-                );
+                return CustomSkeletonLoading.boxSkeleton(context: context, paddingLeft: 16, paddingRight: 16, rounded: 13);
               }
 
               if (state is HomeScreenSeasonalAnimeLoadedState) {
@@ -71,19 +90,18 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> {
                       onTap: () => _onAnimeTap(anime),
                       child: Card(
                         child: Container(
-                          width: 150,
+                          width: 140,
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          // padding: const EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Expanded(
-                                flex: 6,
-                                child: CustomImageViewer(url: anime.images?.jpg?.imageUrl),
+                                flex: 8,
+                                child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
                               ),
                               const SizedBox(height: 4),
                               Expanded(

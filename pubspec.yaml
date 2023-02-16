@@ -16,6 +16,7 @@ dependencies:
   logger: any
   url_launcher: ^6.1.9
   cached_network_image: ^3.2.3
+  shimmer: ^2.0.0
 
   #Platform Info
   package_info_plus: ^3.0.3
@@ -27,6 +28,7 @@ dependencies:
   get_it: ^7.2.0
   equatable: ^2.0.5
   flutter_bloc: ^8.1.2
+  bloc_concurrency: ^0.2.1
 
   #Network
   dio: ^4.0.6

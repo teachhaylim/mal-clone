@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/locale/locale.dart';
+import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
 
@@ -41,10 +42,7 @@ class _HomeGenreSectionState extends State<HomeGenreSection> {
             buildWhen: (pre, cur) => cur is HomeScreenGenresLoadedState || (cur is HomeScreenLoadingState && cur.section == HomeScreenSectionEnum.genre),
             builder: (context, state) {
               if (state is HomeScreenLoadingState && state.section == HomeScreenSectionEnum.genre) {
-                return Container(
-                  height: double.infinity,
-                  color: Colors.grey.shade700,
-                );
+                return CustomSkeletonLoading.boxSkeleton(context: context, paddingLeft: 16, paddingRight: 16, rounded: 13);
               }
 
               if (state is HomeScreenGenresLoadedState) {
