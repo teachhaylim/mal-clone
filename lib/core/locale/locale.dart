@@ -25,5 +25,5 @@ class AppLocale {
   //! Home Screen
   static const String homeGenresText = "Genres";
   static const String homeSeasonalAnimeText = "Seasonal Anime";
-  static const String homeTopAnimeText = "Top 20 Anime of all time";
+  static const String homeTopAnimeText = "Top Anime of all time";
 }

@@ -18,7 +18,7 @@ class ListItemHorizontal extends StatelessWidget {
       onTap: () => _onAnimeTap(anime),
       child: Card(
         child: Container(
-          width: 150,
+          width: 170,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),

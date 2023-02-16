@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
@@ -54,7 +55,7 @@ class _HomeTopAnimeSectionState extends State<HomeTopAnimeSection> {
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   separatorBuilder: (context, index) => const SizedBox(width: 16),
-                  itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(context: context, rounded: 13, width: 150),
+                  itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(context: context, rounded: 13, width: 180),
                 );
               }
 
@@ -62,9 +63,21 @@ class _HomeTopAnimeSectionState extends State<HomeTopAnimeSection> {
                 return ListView.separated(
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   scrollDirection: Axis.horizontal,
-                  itemCount: state.anime.length,
+                  itemCount: state.anime.length + 1,
                   separatorBuilder: (context, index) => const SizedBox(height: 16),
-                  itemBuilder: (context, index) => ListItemHorizontal(anime: state.anime[index]),
+                  itemBuilder: (context, index) {
+                    if (index == state.anime.length) {
+                      return Center(
+                        child: TextButton.icon(
+                          onPressed: () => CustomSimpleDialog.showComingSoon(context: context),
+                          icon: const Icon(Icons.arrow_circle_right_rounded),
+                          label: const Text("View More"),
+                        ),
+                      );
+                    }
+
+                    return ListItemHorizontal(anime: state.anime[index]);
+                  },
                 );
               }
 
