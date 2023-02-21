@@ -55,7 +55,7 @@ class _SettingScreenState extends State<SettingScreen> {
           ListTile(
             leading: const Icon(Icons.info_rounded),
             title: const Text(AppLocale.aboutText),
-            onTap: () => CustomSimpleDialog.showMessageDialog(context: context, message: null),
+            onTap: () => CustomSimpleDialog.showMessageDialog(context: context, message: ""),
           ),
           const Spacer(),
           Text(version),

@@ -36,4 +36,16 @@ class MainRepoImpl extends MainRepo {
       return ApiErrorResponse(message: e.toString());
     }
   }
+
+  @override
+  Future<ApiResponse<BasePaginationResDto<AnimeDto>>> getAnimeByAiringSchedule({int page = 1, int limit = 20, required String day, bool sfw = true, bool kids = false}) async {
+    try {
+      final res = await mainApi.getAnimeByAiringSchedule(page: page, limit: limit, filter: day, sfw: sfw, kids: kids);
+      return ApiSuccessResponse(data: res);
+    } on DioError catch (e) {
+      return ApiResponse.parseDioError(error: e);
+    } catch (e) {
+      return ApiErrorResponse(message: e.toString());
+    }
+  }
 }

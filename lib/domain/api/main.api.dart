@@ -23,4 +23,13 @@ abstract class MainApi {
     @Query("filter") String? filter,
     @Query("type") String? type,
   });
+
+  @GET("schedules")
+  Future<BasePaginationResDto<AnimeDto>> getAnimeByAiringSchedule({
+    @Query("page") int page = 1,
+    @Query("limit") int limit = 20,
+    @Query("filter") String? filter,
+    @Query("sfw") bool? sfw = true,
+    @Query("kids") bool? kids = false,
+  });
 }

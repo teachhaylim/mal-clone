@@ -3,10 +3,23 @@ import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 
-class ListItemHorizontal extends StatelessWidget {
-  const ListItemHorizontal({Key? key, required this.anime}) : super(key: key);
+class AnimeItemGrid extends StatefulWidget {
+  const AnimeItemGrid({Key? key, required this.anime}) : super(key: key);
 
   final AnimeDto anime;
+
+  @override
+  State<AnimeItemGrid> createState() => _AnimeItemGridState();
+}
+
+class _AnimeItemGridState extends State<AnimeItemGrid> {
+  late final AnimeDto anime;
+
+  @override
+  void initState() {
+    super.initState();
+    anime = widget.anime;
+  }
 
   void _onAnimeTap(AnimeDto anime) {
     logger.i(anime);
@@ -17,8 +30,6 @@ class ListItemHorizontal extends StatelessWidget {
     return GestureDetector(
       onTap: () => _onAnimeTap(anime),
       child: Container(
-        margin: const EdgeInsets.all(8),
-        width: 170,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondaryContainer,
@@ -30,7 +41,10 @@ class ListItemHorizontal extends StatelessWidget {
           children: [
             Expanded(
               flex: 8,
-              child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
+              ),
             ),
             const SizedBox(height: 4),
             Expanded(

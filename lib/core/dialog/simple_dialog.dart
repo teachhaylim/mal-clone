@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 
 class CustomSimpleDialog {
-  static Future<void> showMessageDialog({required BuildContext context, String? title, String? message, String? positiveButtonTitle}) async {
-    return showDialog<void>(
+  static void showMessageDialog({required BuildContext context, String? title, required String message, String? positiveButtonTitle}) async {
+    return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
@@ -13,7 +12,7 @@ class CustomSimpleDialog {
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text(message ?? "This is a demo alert dialog. Would you like to approve of this message?"),
+                Text(message),
               ],
             ),
           ),
