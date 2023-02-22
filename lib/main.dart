@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mal_clone/core/config/theme.dart';
 import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/locale/locale.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -38,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: AppRoutes.mainScaffold,
       getPages: AppRouter.appRoutes,
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.cupertino,
     );
   }
 }

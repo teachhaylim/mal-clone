@@ -17,7 +17,6 @@ class ListItemHorizontal extends StatelessWidget {
     return GestureDetector(
       onTap: () => _onAnimeTap(anime),
       child: Container(
-        margin: const EdgeInsets.all(8),
         width: 170,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(

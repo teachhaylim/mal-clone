@@ -79,10 +79,10 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerPr
 
               if (state is HomeScreenSeasonalAnimeLoadedState) {
                 return ListView.separated(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                   scrollDirection: Axis.horizontal,
                   itemCount: state.anime.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  separatorBuilder: (context, index) => const SizedBox(width: 16),
                   itemBuilder: (context, index) => ListItemHorizontal(anime: state.anime[index]),
                 );
               }

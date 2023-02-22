@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:mal_clone/core/config/preference_key.dart';
 import 'package:mal_clone/core/network/api_response.dart';
 import 'package:mal_clone/data/enums/airing_status.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
@@ -7,6 +8,7 @@ import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/domain/api/main.api.dart';
 import 'package:mal_clone/domain/repo/main.repo.dart';
+import 'package:mal_clone/utils/function.dart';
 
 class MainRepoImpl extends MainRepo {
   final MainApi mainApi;
@@ -16,7 +18,11 @@ class MainRepoImpl extends MainRepo {
   @override
   Future<ApiResponse<List<GenericEntryDto>>> getAnimeGenres() async {
     try {
+      final localDB = getBox().get(AppPreference.genresKey);
+      if (localDB != null) return ApiSuccessResponse(data: localDB.cast<GenericEntryDto>());
+
       final res = await mainApi.getAnimeGenres();
+      getBox().put(AppPreference.genresKey, res.data);
       return ApiSuccessResponse(data: res.data);
     } on DioError catch (e) {
       return ApiResponse.parseDioError(error: e);

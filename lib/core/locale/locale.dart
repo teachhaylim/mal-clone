@@ -4,12 +4,14 @@ class AppLocale {
 
   //! Common
   static const String comingSoonMessage = "Coming soon";
+  static const String applyBtn = "Apply";
+  static const String resetBtn = "Reset";
 
   //! Error
 
   //! Navigation
   static const String navigationLabelHome = "Home";
-  static const String navigationLabelCompanyInfo = "Company Info";
+  static const String navigationLabelRandom = "Random";
   static const String navigationLabelSetting = "Setting";
 
   //! Change Theme Screen
@@ -30,4 +32,12 @@ class AppLocale {
 
   //! Current Airing Screen
   static const String currentAiringTitle = "Current Airing";
+
+  //! Search Screen
+  static const String filterDialogGenreTitle = "Genre";
+  static const String filterDialogFilterTitle = "Filter";
+  static const String filterDialogRatingTitle = "Rating";
+  static const String filterDialogOrderByTitle = "Order By";
+  static const String filterDialogSortByTitle = "Sort By";
+  static const String searchHintText = "Search anything....";
 }

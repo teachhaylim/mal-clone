@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:mal_clone/core/navigation/routes.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
 import 'package:mal_clone/views/home/section/browse_by_airing_date.dart';
 import 'package:mal_clone/views/home/section/genre.section.dart';
 import 'package:mal_clone/views/home/section/main_banner.section.dart';
 import 'package:mal_clone/views/home/section/seasonal.section.dart';
 import 'package:mal_clone/views/home/section/top_anime.section.dart';
+import 'package:mal_clone/views/search/helper/args.helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -50,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.toNamed(AppRoutes.searchScreen, arguments: ArgsHelper(searchText: "Full Metal Brotherhood")),
+          child: const Icon(Icons.search_rounded),
         ),
       ),
     );

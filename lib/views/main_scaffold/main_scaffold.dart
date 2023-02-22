@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/views/home/home.screen.dart';
+import 'package:mal_clone/views/random/random.screen.dart';
 import 'package:mal_clone/views/setting/setting.screen.dart';
 
 class MainScaffold extends StatefulWidget {
@@ -21,19 +21,13 @@ class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMix
         index: currentPageIndex,
         children: const [
           HomeScreen(),
+          RandomScreen(),
           SettingScreen(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) {
-          if (index == 2) {
-            Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-            return;
-          }
-
-          setState(() => currentPageIndex = index);
-        },
+        onDestinationSelected: (int index) => setState(() => currentPageIndex = index),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
@@ -42,15 +36,15 @@ class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMix
             tooltip: "",
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings_rounded),
-            label: AppLocale.navigationLabelSetting,
+            icon: Icon(Icons.api_outlined),
+            selectedIcon: Icon(Icons.api_rounded),
+            label: AppLocale.navigationLabelRandom,
             tooltip: "",
           ),
           NavigationDestination(
-            icon: Icon(Icons.color_lens_rounded),
-            selectedIcon: Icon(Icons.color_lens_rounded),
-            label: "Theme Mode (Test)",
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings_rounded),
+            label: AppLocale.navigationLabelSetting,
             tooltip: "",
           ),
         ],

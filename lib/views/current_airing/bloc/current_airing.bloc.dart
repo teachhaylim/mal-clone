@@ -26,7 +26,7 @@ class CurrentAiringBloc extends Bloc<CurrentAiringEvent, CurrentAiringState> {
     final res = await _mainRepo.getAnimeByAiringSchedule(day: event.day, limit: 10, page: state.currentPage);
 
     if (res is ApiErrorResponse) {
-      return;
+      return emit(state.copyWith(status: BlocStatus.error, error: (res as ApiErrorResponse).toCustomError));
     }
 
     final result = (res as ApiSuccessResponse<BasePaginationResDto<AnimeDto>>).data;
@@ -40,17 +40,13 @@ class CurrentAiringBloc extends Bloc<CurrentAiringEvent, CurrentAiringState> {
   void _getMoreAiringEvent(CurrentAiringGetMoreAiringEvent event, Emitter<CurrentAiringState> emit) async {
     emit(state.copyWith(status: BlocStatus.processing, currentPage: state.currentPage + 1));
 
-    await Future.delayed(const Duration(seconds: 3), null);
-
     final res = await _mainRepo.getAnimeByAiringSchedule(day: event.day, page: state.currentPage, limit: 10);
 
     if (res is ApiErrorResponse) {
-      return;
+      return emit(state.copyWith(status: BlocStatus.error, error: (res as ApiErrorResponse).toCustomError));
     }
 
     final result = (res as ApiSuccessResponse<BasePaginationResDto<AnimeDto>>).data;
-    // final lvTotalResults = result.pagination.item?.total ?? 0;
-    // final lvTotalPages = (lvTotalResults / state.limit).ceil();
     final lvHasMore = state.currentPage < state.totalPages;
 
     emit(state.copyWith(hasMore: lvHasMore, anime: state.anime + result.data, status: BlocStatus.loaded));
