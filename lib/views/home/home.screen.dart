@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Get.toNamed(AppRoutes.searchScreen, arguments: ArgsHelper(searchText: "Full Metal Brotherhood")),
+          onPressed: () => Get.toNamed(AppRoutes.searchScreen),
           child: const Icon(Icons.search_rounded),
         ),
       ),

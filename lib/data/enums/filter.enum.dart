@@ -4,5 +4,22 @@ enum FilterEnum {
   ova,
   special,
   ona,
-  music,
+  music;
+
+  String get toApi {
+    switch (this) {
+      case tv:
+        return "tv";
+      case movie:
+        return "movie";
+      case ova:
+        return "ova";
+      case special:
+        return "special";
+      case ona:
+        return "ona";
+      case music:
+        return "music";
+    }
+  }
 }

@@ -31,7 +31,7 @@ class _CustomImageViewerState extends State<CustomImageViewer> {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: url ?? "",
+      imageUrl: url ?? "https://via.placeholder.com/300",
       width: width,
       height: height,
       fit: fit,

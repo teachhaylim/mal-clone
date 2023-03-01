@@ -1,6 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:mal_clone/data/enums/airing_status.enum.dart';
+import 'package:mal_clone/data/enums/filter.enum.dart';
+import 'package:mal_clone/data/enums/order_by.enum.dart';
+import 'package:mal_clone/data/enums/rating.enum.dart';
+import 'package:mal_clone/data/enums/sort_by.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/data/models/network/base_data_res/base_data_res.dto.dart';
+import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:retrofit/http.dart';
 
 part "anime.api.g.dart";
@@ -19,5 +25,27 @@ abstract class AnimeApi {
   @GET("anime/{id}/full")
   Future<BaseDataResDto<AnimeDto>> getAnimeByIdFull({
     @Path("id") required String animeId,
+  });
+
+  @GET("anime")
+  Future<BasePaginationResDto<AnimeDto>> searchAnime({
+    @Query("page") int? page = 1,
+    @Query("limit") int? limit = 10,
+    @Query("q") String? searchText,
+    @Query("type") String? type,
+    @Query("score") double? score,
+    @Query("min_score") double? minScore,
+    @Query("max_score") double? maxScore,
+    @Query("status") String? airingStatus,
+    @Query("rating") String? rating,
+    @Query("sfw") bool? sfw,
+    @Query("genres") String? genres,
+    @Query("genres_exclude") String? genresExclude,
+    @Query("order_by") String? orderBy,
+    @Query("sort") String? sortBy,
+    @Query("letter") String? letter,
+    @Query("producers") String? producers,
+    @Query("start_date") String? startDate,
+    @Query("end_date") String? endDate,
   });
 }

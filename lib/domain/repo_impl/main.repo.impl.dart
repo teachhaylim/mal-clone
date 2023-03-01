@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mal_clone/core/config/preference_key.dart';
+import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/network/api_response.dart';
 import 'package:mal_clone/data/enums/airing_status.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
@@ -22,8 +23,9 @@ class MainRepoImpl extends MainRepo {
       if (localDB != null) return ApiSuccessResponse(data: localDB.cast<GenericEntryDto>());
 
       final res = await mainApi.getAnimeGenres();
-      getBox().put(AppPreference.genresKey, res.data);
-      return ApiSuccessResponse(data: res.data);
+      final sortedData = [...res.data]..sort((a, b) => a.name?.compareTo(b.name ?? "") ?? -1);
+      getBox().put(AppPreference.genresKey, sortedData);
+      return ApiSuccessResponse(data: sortedData);
     } on DioError catch (e) {
       return ApiResponse.parseDioError(error: e);
     } catch (e) {

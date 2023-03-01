@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/data/enums/airing_status.enum.dart';
 import 'package:mal_clone/data/enums/filter.enum.dart';
 import 'package:mal_clone/data/enums/order_by.enum.dart';

@@ -1,6 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:mal_clone/core/di.dart';
+import 'package:mal_clone/data/enums/sort_by.enum.dart';
+import 'package:mal_clone/data/enums/rating.enum.dart';
+import 'package:mal_clone/data/enums/order_by.enum.dart';
+import 'package:mal_clone/data/enums/filter.enum.dart';
+import 'package:mal_clone/data/enums/airing_status.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/core/network/api_response.dart';
+import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
+import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/domain/api/anime.api.dart';
 import 'package:mal_clone/domain/repo/anime.repo.dart';
 
@@ -25,5 +33,54 @@ class AnimeRepoImpl extends AnimeRepo {
   Future<ApiResponse<AnimeDto>> getAnimeByIdFull({required int animeId}) {
     // TODO: implement getAnimeByIdFull
     throw UnimplementedError();
+  }
+
+  @override
+  Future<ApiResponse<BasePaginationResDto<AnimeDto>>> searchAnime({
+    int? page = 1,
+    int? limit = 10,
+    String? searchText,
+    FilterEnum? type,
+    double? score,
+    double? minScore,
+    double? maxScore,
+    AiringStatusEnum? airingStatus,
+    RatingEnum? rating,
+    bool? sfw,
+    List<GenericEntryDto>? genres,
+    List<GenericEntryDto>? genresExclude,
+    OrderByEnum? orderBy,
+    SortByEnum? sortBy,
+    String? letter,
+    List<String>? producers,
+    String? startDate,
+    String? endDate,
+  }) async {
+    try {
+      final res = await animeApi.searchAnime(
+        page: page,
+        searchText: searchText,
+        type: type?.toApi,
+        score: score,
+        maxScore: maxScore,
+        minScore: minScore,
+        airingStatus: airingStatus?.toApi,
+        rating: rating?.toApi,
+        sfw: sfw,
+        genres: genres?.map((e) => e.malId).toList().join(","),
+        genresExclude: genresExclude?.map((e) => e.malId).toList().join(","),
+        sortBy: sortBy?.toApi,
+        orderBy: orderBy?.toApi,
+        letter: letter,
+        producers: producers?.map((e) => e).toString(),
+        startDate: startDate,
+        endDate: endDate,
+      );
+      return ApiSuccessResponse(data: res);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
   }
 }

@@ -54,7 +54,7 @@ Future<ArgsHelper> showSearchFilterDialog({required BuildContext context, requir
           bottomNavigationBar: FilterDialogButtons(
             onReset: () {
               isApplied = false;
-              valueListenable.value = ArgsHelper();
+              valueListenable.value = ArgsHelper(searchText: args.searchText);
             },
             onApply: () {
               isApplied = true;
