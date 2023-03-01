@@ -3,4 +3,5 @@ class AppRoutes {
   static const String changeThemeScreen = "/changeTheme";
   static const String currentAiringScreen = "/currentAiring";
   static const String searchScreen = "/search";
+  static const String genreListScreen = "/genreList";
 }

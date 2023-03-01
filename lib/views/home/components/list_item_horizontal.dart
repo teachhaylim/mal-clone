@@ -16,35 +16,37 @@ class ListItemHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _onAnimeTap(anime),
-      child: Container(
-        width: 170,
+      child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondaryContainer,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 8,
-              child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
-            ),
-            const SizedBox(height: 4),
-            Expanded(
-              flex: 2,
-              child: Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Text(
-                  anime.title ?? "",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        child: SizedBox(
+          width: 160,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 8,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+                  child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: Text(
+                    anime.title ?? "",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

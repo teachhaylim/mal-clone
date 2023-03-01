@@ -37,7 +37,7 @@ class _HomeGenreSectionState extends State<HomeGenreSection> {
           ),
         ),
         SizedBox(
-          height: 220,
+          height: 150,
           child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
             buildWhen: (pre, cur) => cur is HomeScreenGenresLoadedState || (cur is HomeScreenLoadingState && cur.section == HomeScreenSectionEnum.genre),
             builder: (context, state) {
@@ -50,34 +50,41 @@ class _HomeGenreSectionState extends State<HomeGenreSection> {
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   scrollDirection: Axis.horizontal,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 3,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
+                    childAspectRatio: 1 / 3,
                   ),
-                  itemCount: state.genres.length,
+                  itemCount: state.genres.length >= 20 ? 21 : state.genres.length,
                   itemBuilder: (context, index) {
+                    if (index == 20) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Center(
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.only(top: 8, bottom: 8),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              minimumSize: const Size(double.infinity, double.infinity),
+                            ),
+                            onPressed: () => Get.toNamed(AppRoutes.genreListScreen),
+                            child: const Text("View More"),
+                          ),
+                        ),
+                      );
+                    }
+
                     return GestureDetector(
                       onTap: () => _onGenreTap(state.genres[index]),
                       child: Card(
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Expanded(
-                                child: Icon(Icons.align_horizontal_center_rounded),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  state.genres[index].name ?? "",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                                ),
-                              ),
-                            ],
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        child: Center(
+                          child: Text(
+                            state.genres[index].name ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                           ),
                         ),
                       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
-import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
@@ -9,6 +8,7 @@ import 'package:mal_clone/core/widget/custom_loading_indicator.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/data/enums/bloc_status.enum.dart';
 import 'package:mal_clone/extensions/misc.ext.dart';
+import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/search/bloc/search.bloc.dart';
 import 'package:mal_clone/views/search/components/filter_dialog.dart';
 import 'package:mal_clone/views/search/helper/args.helper.dart';
@@ -194,7 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          anime.title ?? "--",
+                                          toDisplayText(anime.title),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context).textTheme.titleMedium,
@@ -213,7 +213,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 padding: EdgeInsets.zero,
                                                 backgroundColor: Theme.of(context).colorScheme.background,
                                                 labelStyle: Theme.of(context).textTheme.subtitle2,
-                                                label: Text(genre?.name ?? "--"),
+                                                label: Text(toDisplayText(genre?.name)),
                                               );
                                             },
                                           ),
@@ -225,10 +225,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                               children: [
                                                 const Icon(Icons.star_rate_rounded, color: Colors.yellow),
                                                 const SizedBox(width: 4),
-                                                Text((anime.score ?? "--").toString()),
+                                                Text(toDisplayText(anime.score)),
                                               ],
                                             ),
-                                            Text((anime.year ?? "--").toString()),
+                                            Text(toDisplayText(anime.year)),
                                           ],
                                         )
                                       ],

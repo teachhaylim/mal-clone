@@ -82,7 +82,7 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerPr
                   padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                   scrollDirection: Axis.horizontal,
                   itemCount: state.anime.length,
-                  separatorBuilder: (context, index) => const SizedBox(width: 16),
+                  separatorBuilder: (context, index) => const SizedBox(width: 8),
                   itemBuilder: (context, index) => ListItemHorizontal(anime: state.anime[index]),
                 );
               }

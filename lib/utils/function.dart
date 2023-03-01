@@ -4,3 +4,16 @@ import 'package:mal_clone/core/config/preference_key.dart';
 Box<dynamic> getBox() {
   return Hive.box(AppPreference.hiveBox);
 }
+
+String toDisplayText(dynamic value) {
+  switch (value.runtimeType) {
+    case String:
+      return value ?? "--";
+    case int:
+    case double:
+    case bool:
+      return value.toString();
+    default:
+      return "--";
+  }
+}

@@ -63,7 +63,7 @@ class _HomeTopAnimeSectionState extends State<HomeTopAnimeSection> {
                   padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                   scrollDirection: Axis.horizontal,
                   itemCount: state.anime.length + 1,
-                  separatorBuilder: (context, index) => const SizedBox(width: 16),
+                  separatorBuilder: (context, index) => const SizedBox(width: 8),
                   itemBuilder: (context, index) {
                     if (index == state.anime.length) {
                       return Center(
