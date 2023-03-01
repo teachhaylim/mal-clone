@@ -8,6 +8,8 @@ import 'package:mal_clone/core/navigation/router.dart';
 import 'package:mal_clone/core/navigation/routes.dart';
 import 'package:get/get.dart';
 
+//TODO: theme doesn't save
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
