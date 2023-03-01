@@ -20,6 +20,7 @@ dependencies:
   carousel_slider: ^4.2.1
   smooth_page_indicator: ^1.0.1
   flutter_sticky_header: ^0.6.5
+  flutter_native_splash: ^2.2.18
 
   #Platform Info
   package_info_plus: ^3.0.3
@@ -58,5 +59,4 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/assets/animation/
-    # - lib/assets/images/
+    - lib/assets/logo/
