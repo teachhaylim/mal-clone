@@ -9,29 +9,34 @@ part 'api_response.freezed.dart';
 
 abstract class ApiResponse<T> {
   static ApiResponse<T> parseDioError<T>({required DioError error}) {
-    String message = "";
-    int statusCode = -1;
+    String message = StatusMessage.unknownError;
+    int statusCode = StatusCode.unknownError;
 
     try {
       switch (error.type) {
         case DioErrorType.response:
-          message = error.response?.data["message"] ?? "Unknown Error";
-          statusCode = error.response?.statusCode ?? -1;
+          message = error.response?.data["message"] ?? StatusMessage.unknownError;
+          statusCode = error.response?.statusCode ?? StatusCode.unknownError;
           break;
         case DioErrorType.connectTimeout:
         case DioErrorType.receiveTimeout:
         case DioErrorType.sendTimeout:
-          message = "Request timeout";
-          statusCode = 408;
+          message = StatusMessage.timeout;
+          statusCode = StatusCode.timeout;
+          break;
+        case DioErrorType.cancel:
+          final lvError = error.response?.data as CustomError?;
+          message = lvError?.message ?? StatusMessage.unknownError;
+          statusCode = lvError?.statusCode ?? StatusCode.unknownError;
           break;
         default:
-          message = error.error is SocketException ? "No Internet Connection" : "Unknown Error!";
-          statusCode = -1;
+          message = error.error is SocketException ? StatusMessage.socketError : StatusMessage.unknownError;
+          statusCode = StatusCode.unknownError;
           break;
       }
     } catch (e) {
-      statusCode = -1;
-      message = "Something went wrong";
+      statusCode = StatusCode.somethingWentWrong;
+      message = StatusMessage.somethingWentWrong;
       logger.e(">> Dio Catch Error: $e");
     }
 
