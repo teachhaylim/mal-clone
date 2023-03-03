@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/views/home/home.screen.dart';
 import 'package:mal_clone/views/random/random.screen.dart';
@@ -11,7 +12,8 @@ class MainScaffold extends StatefulWidget {
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
-class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMixin {
+class _MainScaffoldState extends State<MainScaffold>
+    with TickerProviderStateMixin {
   int currentPageIndex = 0;
 
   @override
@@ -27,7 +29,16 @@ class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMix
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) => setState(() => currentPageIndex = index),
+        onDestinationSelected: (int index) {
+          SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.light,
+              systemStatusBarContrastEnforced: index == 1,
+            ),
+          );
+
+          setState(() => currentPageIndex = index);
+        },
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),

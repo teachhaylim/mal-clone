@@ -21,7 +21,8 @@ class _HomeBrowseByAiringDateState extends State<HomeBrowseByAiringDate> {
           padding: const EdgeInsets.only(left: 16, bottom: 8),
           child: Text(
             AppLocale.homeBrowseByAiringDateText,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 20),
+            style:
+                Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 20),
           ),
         ),
         SizedBox(
@@ -34,7 +35,8 @@ class _HomeBrowseByAiringDateState extends State<HomeBrowseByAiringDate> {
             itemCount: AppConstant.airingDays.length,
             separatorBuilder: (context, index) => const SizedBox(width: 8),
             itemBuilder: (context, index) => ActionChip(
-              onPressed: () => Get.toNamed(AppRoutes.currentAiringScreen, arguments: index),
+              onPressed: () =>
+                  Get.toNamed(AppRoutes.currentAiringScreen, arguments: index),
               label: Text(AppConstant.airingDays[index]),
             ),
           ),

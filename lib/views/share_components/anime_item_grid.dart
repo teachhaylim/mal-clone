@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mal_clone/core/di.dart';
+import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 
@@ -33,7 +34,7 @@ class _AnimeItemGridState extends State<AnimeItemGrid> {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondaryContainer,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(DesignSystem.radius8),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +43,7 @@ class _AnimeItemGridState extends State<AnimeItemGrid> {
             Expanded(
               flex: 8,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(DesignSystem.radius8),
                 child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
               ),
             ),

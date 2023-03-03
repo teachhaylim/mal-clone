@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/views/home/bloc/home_screen.bloc.dart';
@@ -43,7 +44,7 @@ class _HomeMainBannerState extends State<HomeMainBanner> {
           return Container(
             margin: const EdgeInsets.only(left: 16, right: 16),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(DesignSystem.radius12),
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
@@ -83,7 +84,7 @@ class _HomeMainBannerState extends State<HomeMainBanner> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 12, bottom: 16, right: 12),
+                              padding: const EdgeInsets.only(left: 12, bottom: 18, right: 12),
                               child: Text(
                                 item.title ?? "",
                                 style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),
@@ -105,11 +106,11 @@ class _HomeMainBannerState extends State<HomeMainBanner> {
                           child: AnimatedSmoothIndicator(
                             activeIndex: value,
                             count: anime.length,
-                            effect: WormEffect(
-                              dotHeight: 3,
-                              dotWidth: (MediaQuery.of(context).size.width - (10 * anime.length) - 32) / anime.length,
+                            effect: JumpingDotEffect(
+                              verticalOffset: 4,
+                              dotHeight: 6,
+                              dotWidth: (MediaQuery.of(context).size.width - (10 * anime.length) - 192) / anime.length,
                               activeDotColor: Theme.of(context).colorScheme.primary,
-                              // dotColor: AppColors.bannerInactiveColor.withOpacity(0.4),
                             ),
                           ),
                         );

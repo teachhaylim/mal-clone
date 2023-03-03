@@ -34,4 +34,21 @@ enum SeasonEnum {
 
     return SeasonEnum.fall;
   }
+
+  static SeasonEnum? parseSeason(String? value) {
+    if (value == null) return null;
+
+    switch (value.toLowerCase()) {
+      case "winter":
+        return SeasonEnum.winter;
+      case "Spring":
+        return SeasonEnum.spring;
+      case "summer":
+        return SeasonEnum.summer;
+      case "fall":
+        return SeasonEnum.fall;
+      default:
+        return null;
+    }
+  }
 }

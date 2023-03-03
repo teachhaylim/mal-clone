@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mal_clone/core/locale/locale.dart';
+import 'package:mal_clone/core/theme/design_system.dart';
 
 class CustomSimpleDialog {
-  static void showMessageDialog({required BuildContext context, String? title, required String message, String? positiveButtonTitle}) async {
+  static void showMessageDialog(
+      {required BuildContext context,
+      String? title,
+      required String message,
+      String? positiveButtonTitle}) async {
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -38,7 +43,7 @@ class CustomSimpleDialog {
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(DesignSystem.radius12),
           ),
         ),
       );

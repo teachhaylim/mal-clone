@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mal_clone/core/config/theme.dart';
+import 'package:mal_clone/core/theme/theme.dart';
 import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/navigation/router.dart';
@@ -18,8 +18,9 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+      systemStatusBarContrastEnforced: false,
     ),
   );
   await initializeApp();

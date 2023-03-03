@@ -1,7 +1,7 @@
 import 'package:mal_clone/data/models/aired/aired.dto.dart';
 import 'package:mal_clone/data/models/broadcast/broadcast.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
-import 'package:mal_clone/data/models/image/image.dto.dart';
+import 'package:mal_clone/data/models/image/image/image.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
 import 'package:mal_clone/data/models/theme/theme.dto.dart';
 import 'package:mal_clone/data/models/title/title.dto.dart';

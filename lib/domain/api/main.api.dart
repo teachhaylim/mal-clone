@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:mal_clone/core/misc.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_data_list_res/base_data_list_res.dto.dart';
@@ -36,6 +35,5 @@ abstract class MainApi {
   });
 
   @GET("random/anime")
-  @RequiredAuthentication
   Future<BaseDataResDto<AnimeDto>> getRandomAnime();
 }

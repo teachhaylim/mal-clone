@@ -5,7 +5,6 @@ import 'package:mal_clone/data/enums/airing_status.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/data/enums/filter.enum.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
-import 'package:mal_clone/data/models/network/base_data_res/base_data_res.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/domain/api/main.api.dart';
 import 'package:mal_clone/domain/repo/main.repo.dart';
@@ -58,10 +57,10 @@ class MainRepoImpl extends MainRepo {
   }
 
   @override
-  Future<ApiResponse<BaseDataResDto<AnimeDto>>> getRandomAnime() async {
+  Future<ApiResponse<AnimeDto>> getRandomAnime() async {
     try {
       final res = await mainApi.getRandomAnime();
-      return ApiSuccessResponse(data: res);
+      return ApiSuccessResponse(data: res.data);
     } on DioError catch (e) {
       return ApiResponse.parseDioError(error: e);
     } catch (e) {

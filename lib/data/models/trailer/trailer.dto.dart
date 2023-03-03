@@ -1,5 +1,5 @@
-import 'package:mal_clone/data/models/image/image.dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mal_clone/data/models/image/images_dto/images.dto.dart';
 
 part 'trailer.dto.freezed.dart';
 part 'trailer.dto.g.dart';
@@ -10,7 +10,7 @@ class TrailerDto with _$TrailerDto {
     @JsonKey(name: 'youtube_id') String? youtubeId,
     String? url,
     @JsonKey(name: 'embed_url') String? embedUrl,
-    ImageDto? image,
+    ImagesDto? images,
   }) = _TrailerDto;
 
   factory TrailerDto.fromJson(Map<String, dynamic> json) => _$TrailerDtoFromJson(json);

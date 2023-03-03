@@ -12,5 +12,6 @@ class ImageDto with _$ImageDto {
     WebpDto? webp,
   }) = _ImageDto;
 
-  factory ImageDto.fromJson(Map<String, dynamic> json) => _$ImageDtoFromJson(json);
+  factory ImageDto.fromJson(Map<String, dynamic> json) =>
+      _$ImageDtoFromJson(json);
 }
