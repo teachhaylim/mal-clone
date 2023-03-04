@@ -41,7 +41,7 @@ enum SeasonEnum {
     switch (value.toLowerCase()) {
       case "winter":
         return SeasonEnum.winter;
-      case "Spring":
+      case "spring":
         return SeasonEnum.spring;
       case "summer":
         return SeasonEnum.summer;

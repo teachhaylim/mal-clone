@@ -6,6 +6,8 @@ class AppLocale {
   static const String comingSoonMessage = "Coming soon";
   static const String applyBtn = "Apply";
   static const String resetBtn = "Reset";
+  static const String seeMore = "See More";
+  static const String seeLess = "See Less";
 
   //! Error
 
@@ -40,4 +42,30 @@ class AppLocale {
   static const String filterDialogOrderByTitle = "Order By";
   static const String filterDialogSortByTitle = "Sort By";
   static const String searchHintText = "Search anything....";
+
+  //! Random Screen
+  static const String suprisedMeText = "Suprised Me!";
+  static const String infoText = "Info";
+  static const String statsInfoText = "Stats Info";
+  static const String membersText = "Members";
+  static const String favoritesText = "Favorites";
+  static const String popularityText = "Popularity";
+  static const String rankingText = "Ranking";
+  static const String broadcastinfoText = "Broadcast Info";
+  static const String statusText = "Status";
+  static const String broadcastPeriodText = "Broadcast Period";
+  static const String episodesText = "Episodes";
+  static const String premieredOnText = "Premiered On";
+  static const String broadcastDayText = "Broadcast Day";
+  static const String durationText = "Duration";
+  static const String ratingText = "Rating";
+  static const String studiosText = "Studios";
+  static const String genresText = "Genres";
+  static const String producersText = "Producers";
+  static const String themesText = "Themes";
+  static const String explictGenresText = "Explicit Genres";
+  static const String demographicsText = "Demographics";
+  static const String licensorsText = "Licensors";
+  static const String linkText = "Links";
+  static const String mediaText = "Media";
 }

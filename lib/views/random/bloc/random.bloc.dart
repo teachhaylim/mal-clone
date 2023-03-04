@@ -23,8 +23,9 @@ class RandomBloc extends Bloc<RandomEvent, RandomState> {
   void _getRandomAnime(RandomGetRandomAnimeEvent event, Emitter<RandomState> emit) async {
     emit(const RandomLoadingState());
 
-    // final res = await _mainRepo.getRandomAnime();
-    final res = await _animeRepo.getAnimeById(animeId: 50709);
+    final res = await _mainRepo.getRandomAnime();
+    // final res = await _animeRepo.getAnimeById(animeId: 1);
+    // final res = await _animeRepo.getAnimeById(animeId: 50709);
 
     if (res is ApiErrorResponse) {
       return emit(RandomErrorState(error: (res as ApiErrorResponse).toCustomError));
