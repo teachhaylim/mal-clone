@@ -31,7 +31,7 @@ class RandomMediaInfoSection extends StatelessWidget {
             value: anime.genres?.map((e) => e.name ?? "").toList() ?? [],
           ),
           RowItems(
-            title: AppLocale.explictGenresText,
+            title: AppLocale.explicitGenresText,
             value: anime.explicitGenres?.map((e) => e.name ?? "").toList() ?? [],
           ),
           RowItems(

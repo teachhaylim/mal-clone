@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:mal_clone/data/enums/airing_status.enum.dart';
-import 'package:mal_clone/data/enums/filter.enum.dart';
-import 'package:mal_clone/data/enums/order_by.enum.dart';
-import 'package:mal_clone/data/enums/rating.enum.dart';
-import 'package:mal_clone/data/enums/sort_by.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
+import 'package:mal_clone/data/models/network/base_data_list_res/base_data_list_res.dto.dart';
 import 'package:mal_clone/data/models/network/base_data_res/base_data_res.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
+import 'package:mal_clone/data/models/relation/relation.dto.dart';
+import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 import 'package:retrofit/http.dart';
 
 part "anime.api.g.dart";
@@ -47,5 +45,15 @@ abstract class AnimeApi {
     @Query("producers") String? producers,
     @Query("start_date") String? startDate,
     @Query("end_date") String? endDate,
+  });
+
+  @GET("anime/{id}/streaming")
+  Future<BaseDataListResDto<StreamingServiceDto>> getAnimeStreamingServices({
+    @Path("id") required String animeId,
+  });
+
+  @GET("anime/{id}/relations")
+  Future<BaseDataListResDto<RelationDto>> getAnimeRelations({
+    @Path("id") required String animeId,
   });
 }

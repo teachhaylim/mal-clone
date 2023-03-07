@@ -6,6 +6,12 @@ class DesignSystem {
   /// Radius value is 12
   static const double radius12 = 12;
 
+  /// Radius value is 50
+  static const double radius50 = 50;
+
+  /// Radius value is 100
+  static const double radius100 = 100;
+
   /// Spacing value is 4
   static const double spacing4 = 4;
 

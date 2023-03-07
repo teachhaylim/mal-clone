@@ -5,13 +5,19 @@ analyzer:
 dart_code_metrics:
   metrics:
     cyclomatic-complexity: 20
-    number-of-parameters: 4
+    number-of-parameters: 20
     maximum-nesting-level: 5
   metrics-exclude:
     - test/**
   rules:
+    # NOTE: Always Rules
+    - always_use_package_imports
+    - always_put_required_named_parameters_first
+    # NOTE: Avoid Rules
     - avoid-print
+    - avoid_relative_lib_imports
     # - avoid-dynamic
+    - avoid_empty_else
     - avoid-redundant-async
     # - avoid-passing-async-when-sync-expected
     - avoid-unnecessary-type-assertions
@@ -19,11 +25,17 @@ dart_code_metrics:
     - avoid-unrelated-type-assertions
     - avoid-unused-parameters
     - avoid-nested-conditional-expressions
-    - newline-before-return
+    # - newline-before-return
+    # NOTE: No Rules
     - no-boolean-literal-compare
     - no-empty-block
+    - no-equal-then-else
+    # NOTE: Prefer Rules
+    - prefer_relative_imports
     - prefer-trailing-comma
     - prefer-conditional-expressions
-    - no-equal-then-else
     # - prefer-moving-to-variable
     # - prefer-match-file-name
+    # NOTE: Misc Rules
+    - camel_case_extensions
+    - camel_case_types

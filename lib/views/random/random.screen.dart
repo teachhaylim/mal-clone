@@ -2,20 +2,23 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:mal_clone/core/config/constant.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
-import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/random/bloc/random.bloc.dart';
 import 'package:mal_clone/views/random/section/broadcast_info.section.dart';
 import 'package:mal_clone/views/random/section/header_info.section.dart';
 import 'package:mal_clone/views/random/section/info.section.dart';
+import 'package:mal_clone/views/random/section/initial.section.dart';
 import 'package:mal_clone/views/random/section/link_info.section.dart';
 import 'package:mal_clone/views/random/section/media_info.section.dart';
+import 'package:mal_clone/views/random/section/relations.section.dart';
 import 'package:mal_clone/views/random/section/stats_info.section.dart';
-import 'package:mal_clone/views/share_components/star_rating.dart';
+import 'package:mal_clone/views/random/section/streaming_services.section.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class RandomScreen extends StatefulWidget {
@@ -39,6 +42,12 @@ class _SearchScreenState extends State<RandomScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.removeListener(fabScrollListener);
+  }
+
   void fabScrollListener() {
     final userScrollDirection = scrollController.position.userScrollDirection;
 
@@ -55,11 +64,7 @@ class _SearchScreenState extends State<RandomScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    scrollController.removeListener(fabScrollListener);
-  }
+  void onGetRandom() => randomBloc.add(const RandomGetRandomAnimeEvent());
 
   @override
   Widget build(BuildContext context) {
@@ -77,20 +82,46 @@ class _SearchScreenState extends State<RandomScreen> {
           },
           builder: (context, state) {
             if (state is RandomInitialState) {
-              return Container(
-                color: Colors.amberAccent,
-                height: MediaQuery.of(context).size.height,
-              );
+              return RandomInitialSection();
             }
 
             if (state is RandomLoadingState) {
-              return CustomSkeletonLoading.boxSkeleton(context: context);
+              return SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: [
+                      CustomSkeletonLoading.boxSkeleton(
+                        context: context,
+                        height: 250,
+                      ),
+                      const SizedBox(height: DesignSystem.spacing8),
+                      CustomSkeletonLoading.boxSkeleton(
+                        context: context,
+                        height: 150,
+                      ),
+                      const SizedBox(height: DesignSystem.spacing8),
+                      CustomSkeletonLoading.boxSkeleton(
+                        context: context,
+                        height: 150,
+                      ),
+                      const SizedBox(height: DesignSystem.spacing8),
+                      CustomSkeletonLoading.boxSkeleton(
+                        context: context,
+                        height: 150,
+                      ),
+                      const SizedBox(height: DesignSystem.spacing8),
+                    ],
+                  ),
+                ),
+              );
             }
 
             if (state is RandomLoadedState) {
               final anime = state.anime;
+              final streamingServices = state.streamingServices;
+              final relations = state.relations;
 
-              PaletteGenerator.fromImageProvider(NetworkImage(anime.images?.jpg?.imageUrl ?? "")).then((value) {
+              PaletteGenerator.fromImageProvider(NetworkImage(anime.images?.jpg?.largeImageUrl ?? "")).then((value) {
                 backdropColor.value = value;
               });
 
@@ -101,14 +132,14 @@ class _SearchScreenState extends State<RandomScreen> {
                     ValueListenableBuilder<PaletteGenerator?>(
                       valueListenable: backdropColor,
                       builder: (context, value, widget) => Container(
-                        height: 200,
+                        height: MediaQuery.of(context).size.height / 1.2,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              value?.dominantColor?.color.withOpacity(.8) ?? Colors.transparent,
-                              Colors.black.withOpacity(.8),
+                              value?.vibrantColor?.color.withOpacity(0.8) ?? Colors.transparent,
+                              (Get.isDarkMode ? Colors.black : Colors.white).withOpacity(0.8),
                             ],
                           ),
                         ),
@@ -136,7 +167,7 @@ class _SearchScreenState extends State<RandomScreen> {
                               ),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: CustomImageViewer(
-                                url: anime.images?.jpg?.imageUrl,
+                                url: anime.images?.jpg?.largeImageUrl,
                               ),
                             ),
                           ),
@@ -145,6 +176,8 @@ class _SearchScreenState extends State<RandomScreen> {
                         RandomInfoSection(anime: anime),
                         RandomStatsInfoSection(anime: anime),
                         RandomBroadcastInfoSection(anime: anime),
+                        RandomStreamingServicesSection(streamingServices: streamingServices),
+                        RandomRelationsSection(relations: relations),
                         RandomMediaInfoSection(anime: anime),
                         RandomLinkInfoSection(anime: anime),
                         const SizedBox(height: DesignSystem.spacing16),
@@ -153,6 +186,10 @@ class _SearchScreenState extends State<RandomScreen> {
                   ],
                 ),
               );
+            }
+
+            if (state is RandomErrorState) {
+              return RandomInitialSection();
             }
 
             return Container();
@@ -169,11 +206,9 @@ class _SearchScreenState extends State<RandomScreen> {
                 opacity: value ? 1 : 0,
                 child: FloatingActionButton.extended(
                   heroTag: "randomAnime",
-                  onPressed: () {
-                    randomBloc.add(const RandomGetRandomAnimeEvent());
-                  },
+                  onPressed: onGetRandom,
                   icon: const Icon(Icons.shuffle_rounded),
-                  label: const Text(AppLocale.suprisedMeText),
+                  label: const Text(AppLocale.surprisedMeText),
                 ),
               ),
             );

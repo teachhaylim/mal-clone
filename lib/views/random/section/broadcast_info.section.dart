@@ -25,7 +25,7 @@ class RandomBroadcastInfoSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocale.broadcastinfoText,
+            AppLocale.broadcastInfoText,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
           ),
           RowItem(title: AppLocale.statusText, value: anime.status),

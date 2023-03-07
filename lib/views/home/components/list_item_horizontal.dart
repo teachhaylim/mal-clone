@@ -29,7 +29,7 @@ class ListItemHorizontal extends StatelessWidget {
                 flex: 8,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
-                  child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
+                  child: CustomImageViewer(url: anime.images?.webp?.largeImageUrl),
                 ),
               ),
               const SizedBox(height: 4),

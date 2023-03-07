@@ -7,6 +7,8 @@ import 'package:mal_clone/data/enums/sort_by.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
+import 'package:mal_clone/data/models/relation/relation.dto.dart';
+import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 
 abstract class AnimeRepo {
   Future<ApiResponse<AnimeDto>> getAnimeById({required int animeId});
@@ -31,4 +33,6 @@ abstract class AnimeRepo {
     String? startDate,
     String? endDate,
   });
+  Future<ApiResponse<List<StreamingServiceDto>>> getAnimeStreamingServices({required int animeId});
+  Future<ApiResponse<List<RelationDto>>> getAnimeRelations({required int animeId});
 }

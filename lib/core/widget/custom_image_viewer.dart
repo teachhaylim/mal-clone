@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mal_clone/core/config/constant.dart';
 
 class CustomImageViewer extends StatefulWidget {
   const CustomImageViewer({Key? key, this.url, this.fit = BoxFit.cover, this.height = double.infinity, this.width = double.infinity}) : super(key: key);
@@ -31,7 +32,7 @@ class _CustomImageViewerState extends State<CustomImageViewer> {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: url ?? "https://via.placeholder.com/300",
+      imageUrl: url ?? AppConstant.placeholderImageUrl,
       width: width,
       height: height,
       fit: fit,

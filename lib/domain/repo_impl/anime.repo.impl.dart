@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/data/enums/sort_by.enum.dart';
 import 'package:mal_clone/data/enums/rating.enum.dart';
 import 'package:mal_clone/data/enums/order_by.enum.dart';
@@ -9,6 +8,8 @@ import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/core/network/api_response.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
+import 'package:mal_clone/data/models/relation/relation.dto.dart';
+import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 import 'package:mal_clone/domain/api/anime.api.dart';
 import 'package:mal_clone/domain/repo/anime.repo.dart';
 
@@ -77,6 +78,30 @@ class AnimeRepoImpl extends AnimeRepo {
         endDate: endDate,
       );
       return ApiSuccessResponse(data: res);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<StreamingServiceDto>>> getAnimeStreamingServices({required int animeId}) async {
+    try {
+      final res = await animeApi.getAnimeStreamingServices(animeId: animeId.toString());
+      return ApiSuccessResponse(data: res.data);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<RelationDto>>> getAnimeRelations({required int animeId}) async {
+    try {
+      final res = await animeApi.getAnimeRelations(animeId: animeId.toString());
+      return ApiSuccessResponse(data: res.data);
     } on DioError catch (error) {
       return ApiResponse.parseDioError(error: error);
     } catch (error) {

@@ -44,14 +44,16 @@ class AppLocale {
   static const String searchHintText = "Search anything....";
 
   //! Random Screen
-  static const String suprisedMeText = "Suprised Me!";
+  static const String initialTitle = "Don't know what to look for?";
+  static const String initialSubtitle = "Get a randomly selected anime, by pressing 'Surprised Me!' button below";
+  static const String surprisedMeText = "Surprised Me!";
   static const String infoText = "Info";
   static const String statsInfoText = "Stats Info";
   static const String membersText = "Members";
   static const String favoritesText = "Favorites";
   static const String popularityText = "Popularity";
   static const String rankingText = "Ranking";
-  static const String broadcastinfoText = "Broadcast Info";
+  static const String broadcastInfoText = "Broadcast Info";
   static const String statusText = "Status";
   static const String broadcastPeriodText = "Broadcast Period";
   static const String episodesText = "Episodes";
@@ -63,9 +65,11 @@ class AppLocale {
   static const String genresText = "Genres";
   static const String producersText = "Producers";
   static const String themesText = "Themes";
-  static const String explictGenresText = "Explicit Genres";
+  static const String explicitGenresText = "Explicit Genres";
   static const String demographicsText = "Demographics";
   static const String licensorsText = "Licensors";
   static const String linkText = "Links";
   static const String mediaText = "Media";
+  static const String streamingServicesText = "Streaming Services";
+  static const String relationsText = "Relations";
 }

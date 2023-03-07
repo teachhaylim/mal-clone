@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
+import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/core/widget/custom_loading_indicator.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/data/enums/bloc_status.enum.dart';
+import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/extensions/misc.ext.dart';
 import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/search/bloc/search.bloc.dart';
@@ -56,6 +58,10 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _handleLoadMore() => _scrollController.isBottom && searchBloc.state.hasMore ? searchBloc.add(const SearchLoadMoreEvent()) : null;
+
+  void _onAnimeTap(AnimeDto anime) {
+    logger.i(anime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
               if (argsListenable.value.isFiltered) {
                 searchBloc.add(const SearchGetAnimeEvent());
               }
+
               return;
             }
           },
@@ -175,67 +182,70 @@ class _SearchScreenState extends State<SearchScreen> {
                       itemBuilder: (context, index) {
                         final anime = state.anime[index];
 
-                        return Card(
-                          elevation: 1,
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          child: SizedBox(
-                            height: 100,
-                            child: Row(
-                              children: [
-                                CustomImageViewer(
-                                  width: 100,
-                                  url: anime.images?.jpg?.largeImageUrl,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          toDisplayText(anime.title),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.titleMedium,
-                                        ),
-                                        Expanded(
-                                          child: ListView.separated(
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            itemCount: (anime.genres?.length ?? 0) >= 2 ? 2 : (anime.genres?.length ?? 0),
-                                            separatorBuilder: (context, index) => const SizedBox(width: 8),
-                                            itemBuilder: (context, index) {
-                                              final genre = anime.genres?[index];
-
-                                              return Chip(
-                                                visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                                padding: EdgeInsets.zero,
-                                                backgroundColor: Theme.of(context).colorScheme.background,
-                                                labelStyle: Theme.of(context).textTheme.subtitle2,
-                                                label: Text(toDisplayText(genre?.name)),
-                                              );
-                                            },
+                        return GestureDetector(
+                          onTap: () => _onAnimeTap(anime),
+                          child: Card(
+                            elevation: 1,
+                            clipBehavior: Clip.antiAlias,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            child: SizedBox(
+                              height: 100,
+                              child: Row(
+                                children: [
+                                  CustomImageViewer(
+                                    width: 100,
+                                    url: anime.images?.jpg?.largeImageUrl,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            toDisplayText(anime.title),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.titleMedium,
                                           ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Icon(Icons.star_rate_rounded, color: Colors.yellow),
-                                                const SizedBox(width: 4),
-                                                Text(toDisplayText(anime.score)),
-                                              ],
+                                          Expanded(
+                                            child: ListView.separated(
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              itemCount: (anime.genres?.length ?? 0) >= 2 ? 2 : (anime.genres?.length ?? 0),
+                                              separatorBuilder: (context, index) => const SizedBox(width: 8),
+                                              itemBuilder: (context, index) {
+                                                final genre = anime.genres?[index];
+
+                                                return Chip(
+                                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                                  padding: EdgeInsets.zero,
+                                                  backgroundColor: Theme.of(context).colorScheme.background,
+                                                  labelStyle: Theme.of(context).textTheme.subtitle2,
+                                                  label: Text(toDisplayText(genre?.name)),
+                                                );
+                                              },
                                             ),
-                                            Text(toDisplayText(anime.year)),
-                                          ],
-                                        )
-                                      ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(Icons.star_rate_rounded, color: Colors.yellow),
+                                                  const SizedBox(width: 4),
+                                                  Text(toDisplayText(anime.score)),
+                                                ],
+                                              ),
+                                              Text(toDisplayText(anime.year)),
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );

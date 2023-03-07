@@ -10,3 +10,7 @@ abstract class RandomEvent extends Equatable {
 class RandomGetRandomAnimeEvent extends RandomEvent {
   const RandomGetRandomAnimeEvent();
 }
+
+// class RandomGetStreamingServicesEvent extends RandomEvent {
+//   const RandomGetStreamingServicesEvent();
+// }

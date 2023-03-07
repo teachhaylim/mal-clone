@@ -10,7 +10,7 @@ class RandomLinkInfoSection extends StatelessWidget {
   final AnimeDto anime;
 
   void _onTrailerClick() {
-    CustomUrlLauncher.launch(url: anime.trailer?.url ?? "");
+    CustomUrlLauncher.launch(url: anime.trailer?.url);
   }
 
   @override

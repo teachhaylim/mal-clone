@@ -44,7 +44,7 @@ class _AnimeItemGridState extends State<AnimeItemGrid> {
               flex: 8,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(DesignSystem.radius8),
-                child: CustomImageViewer(url: anime.images?.webp?.imageUrl),
+                child: CustomImageViewer(url: anime.images?.webp?.largeImageUrl),
               ),
             ),
             const SizedBox(height: 4),
