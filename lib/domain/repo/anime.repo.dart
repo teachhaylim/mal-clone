@@ -5,6 +5,8 @@ import 'package:mal_clone/data/enums/order_by.enum.dart';
 import 'package:mal_clone/data/enums/rating.enum.dart';
 import 'package:mal_clone/data/enums/sort_by.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
+import 'package:mal_clone/data/models/character/character.dto.dart';
+import 'package:mal_clone/data/models/episode/episode.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
@@ -35,4 +37,6 @@ abstract class AnimeRepo {
   });
   Future<ApiResponse<List<StreamingServiceDto>>> getAnimeStreamingServices({required int animeId});
   Future<ApiResponse<List<RelationDto>>> getAnimeRelations({required int animeId});
+  Future<ApiResponse<List<CharacterDto>>> getAnimeCharacters({required int animeId});
+  Future<ApiResponse<BasePaginationResDto<EpisodeDto>>> getAnimeEpisodes({required int animeId, int? page = 1});
 }

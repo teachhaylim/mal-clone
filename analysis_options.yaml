@@ -13,6 +13,7 @@ dart_code_metrics:
     # NOTE: Always Rules
     - always_use_package_imports
     - always_put_required_named_parameters_first
+    - always_specify_types
     # NOTE: Avoid Rules
     - avoid-print
     - avoid_relative_lib_imports
@@ -25,6 +26,12 @@ dart_code_metrics:
     - avoid-unrelated-type-assertions
     - avoid-unused-parameters
     - avoid-nested-conditional-expressions
+    - avoid_redundant_argument_values
+    - avoid_renaming_method_parameters
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_unnecessary_containers
+    - avoid_multiple_declarations_per_line
+    - avoid_unused_constructor_parameters
     # - newline-before-return
     # NOTE: No Rules
     - no-boolean-literal-compare
@@ -34,8 +41,62 @@ dart_code_metrics:
     - prefer_relative_imports
     - prefer-trailing-comma
     - prefer-conditional-expressions
+    - prefer_double_quotes
+    - prefer_contains
+    - prefer_expression_function_bodies
+    - prefer_final_locals
+    - prefer_final_parameters
+    - prefer_final_in_for_each
+    - prefer_for_elements_to_map_fromIterable
+    - prefer_function_declarations_over_variables
+    - prefer_if_null_operators
+    - prefer_if_elements_to_conditional_expressions
+    - prefer_interpolation_to_compose_strings
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_is_not_operator
+    - prefer_iterable_whereType
+    - prefer_int_literals
+    - prefer_initializing_formals
+    - prefer_null_aware_operators
+    - prefer_null_aware_method_calls
     # - prefer-moving-to-variable
     # - prefer-match-file-name
+    # NOTE: Unnecessary Rules
+    - unnecessary_statements
+    - unnecessary_await_in_return
+    - unnecessary_brace_in_string_interps
+    - unnecessary_const
+    - unnecessary_lambdas
+    - unnecessary_null_aware_operator_on_extension_on_nullable
+    - unnecessary_null_in_if_null_operators
+    - unnecessary_nullable_for_final_variable_declarations
+    - unnecessary_string_escapes
+    - unnecessary_string_interpolations
+    - unnecessary_null_aware_assignments
+    # NOTE: Use Rules
+    - use_full_hex_values_for_flutter_colors
+    - use_if_null_to_convert_nulls_to_bools
+    - use_named_constants
+    - use_raw_strings
+    - use_to_and_as_if_applicable
     # NOTE: Misc Rules
     - camel_case_extensions
     - camel_case_types
+    - await_only_futures
+    - empty_catches
+    - empty_constructor_bodies
+    - curly_braces_in_flow_control_structures
+    - constant_identifier_names
+    - file_names
+    - flutter_style_todos
+    - leading_newlines_in_multiline_strings
+    - library_prefixes
+    - no_leading_underscores_for_library_prefixes
+    - no_leading_underscores_for_local_identifiers
+    - require_trailing_commas
+    - sized_box_for_whitespace
+    - sized_box_shrink_expand
+    - slash_for_doc_comments
+    - sort_child_properties_last
+    - unawaited_futures

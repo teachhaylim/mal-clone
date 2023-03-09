@@ -8,6 +8,7 @@ class AppLocale {
   static const String resetBtn = "Reset";
   static const String seeMore = "See More";
   static const String seeLess = "See Less";
+  static const String noInfoAvailable = "No info available";
 
   //! Error
 
@@ -72,4 +73,7 @@ class AppLocale {
   static const String mediaText = "Media";
   static const String streamingServicesText = "Streaming Services";
   static const String relationsText = "Relations";
+  static const String charactersText = "Characters";
+  static const String voiceActorsText = "Voice Actors";
+  static const String allCharactersText = "All Characters";
 }

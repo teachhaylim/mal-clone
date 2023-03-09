@@ -19,10 +19,11 @@ class RandomLoadedState extends RandomState {
   final AnimeDto anime;
   final List<StreamingServiceDto> streamingServices;
   final List<RelationDto> relations;
-  const RandomLoadedState({required this.anime, required this.streamingServices, required this.relations});
+  final List<CharacterDto> characters;
+  const RandomLoadedState({required this.anime, required this.streamingServices, required this.relations, required this.characters});
 
   @override
-  List get props => [anime, streamingServices, relations];
+  List get props => [anime, streamingServices, relations, characters];
 }
 
 class RandomErrorState extends RandomState {

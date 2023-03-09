@@ -6,6 +6,8 @@ import 'package:mal_clone/data/enums/filter.enum.dart';
 import 'package:mal_clone/data/enums/airing_status.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/core/network/api_response.dart';
+import 'package:mal_clone/data/models/character/character.dto.dart';
+import 'package:mal_clone/data/models/episode/episode.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
@@ -102,6 +104,30 @@ class AnimeRepoImpl extends AnimeRepo {
     try {
       final res = await animeApi.getAnimeRelations(animeId: animeId.toString());
       return ApiSuccessResponse(data: res.data);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<CharacterDto>>> getAnimeCharacters({required int animeId}) async {
+    try {
+      final res = await animeApi.getAnimeCharacters(animeId: animeId.toString());
+      return ApiSuccessResponse(data: res.data);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<BasePaginationResDto<EpisodeDto>>> getAnimeEpisodes({required int animeId, int? page = 1}) async {
+    try {
+      final res = await animeApi.getAnimeEpisodes(animeId: animeId.toString(), page: page);
+      return ApiSuccessResponse(data: res);
     } on DioError catch (error) {
       return ApiResponse.parseDioError(error: error);
     } catch (error) {

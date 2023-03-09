@@ -4,7 +4,6 @@ import 'package:shimmer/shimmer.dart';
 
 class CustomSkeletonLoading {
   static Widget boxSkeleton({
-    required BuildContext context,
     double paddingLeft = 0,
     double paddingRight = 0,
     double paddingTop = 0,
@@ -16,7 +15,7 @@ class CustomSkeletonLoading {
     return Container(
       width: width,
       height: height,
-      padding: EdgeInsets.fromLTRB(paddingLeft, paddingTop, paddingRight, paddingBottom),
+      margin: EdgeInsets.fromLTRB(paddingLeft, paddingTop, paddingRight, paddingBottom),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(rounded),
         child: Shimmer.fromColors(

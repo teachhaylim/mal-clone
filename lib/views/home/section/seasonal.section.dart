@@ -73,7 +73,7 @@ class _HomeSeasonalSectionState extends State<HomeSeasonalSection> with TickerPr
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   separatorBuilder: (context, index) => const SizedBox(width: 16),
-                  itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(context: context, rounded: 13, width: 180),
+                  itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(rounded: 13, width: 180),
                 );
               }
 

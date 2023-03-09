@@ -10,11 +10,12 @@ var options = BaseOptions(
 );
 Dio dio = Dio(options)
   ..interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      maxWidth: 150))
+    requestHeader: true,
+    requestBody: true,
+    responseBody: true,
+    responseHeader: false,
+    error: true,
+    compact: true,
+    maxWidth: 150,
+  ))
   ..interceptors.add(CustomInterceptor());

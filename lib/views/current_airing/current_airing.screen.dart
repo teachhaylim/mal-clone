@@ -54,6 +54,7 @@ class _CurrentAiringScreenState extends State<CurrentAiringScreen> {
           actions: [
             IconButton(
               onPressed: () async {
+                //TODO: move to outside file
                 final result = await showModalBottomSheet<int>(
                   context: context,
                   shape: const RoundedRectangleBorder(
@@ -128,10 +129,7 @@ class _CurrentAiringScreenState extends State<CurrentAiringScreen> {
                   mainAxisSpacing: 16,
                   childAspectRatio: 0.8,
                 ),
-                itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(
-                  context: context,
-                  rounded: 12,
-                ),
+                itemBuilder: (context, index) => CustomSkeletonLoading.boxSkeleton(rounded: 12),
               );
             }
 

@@ -26,20 +26,22 @@ class RandomStreamingServicesSection extends StatelessWidget {
             AppLocale.streamingServicesText,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
           ),
-          const SizedBox(height: DesignSystem.spacing8),
-          Wrap(
-            runSpacing: DesignSystem.spacing8,
-            spacing: DesignSystem.spacing8,
-            children: [
-              ...streamingServices.map(
-                (service) => Chip(
-                  labelStyle: Theme.of(context).textTheme.bodyMedium,
-                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                  label: Text(toDisplayText(service.name)),
+          if (streamingServices.isEmpty) Text(AppLocale.noInfoAvailable),
+          if (streamingServices.isNotEmpty) const SizedBox(height: DesignSystem.spacing8),
+          if (streamingServices.isNotEmpty)
+            Wrap(
+              runSpacing: DesignSystem.spacing8,
+              spacing: DesignSystem.spacing8,
+              children: [
+                ...streamingServices.map(
+                  (service) => Chip(
+                    labelStyle: Theme.of(context).textTheme.bodyMedium,
+                    visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                    label: Text(toDisplayText(service.name)),
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
         ],
       ),
     );

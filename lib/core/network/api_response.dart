@@ -15,8 +15,7 @@ abstract class ApiResponse<T> {
     try {
       switch (error.type) {
         case DioErrorType.response:
-          message =
-              error.response?.data["message"] ?? StatusMessage.unknownError;
+          message = error.response?.data["message"] ?? StatusMessage.unknownError;
           statusCode = error.response?.statusCode ?? StatusCode.unknownError;
           break;
         case DioErrorType.connectTimeout:
@@ -31,9 +30,7 @@ abstract class ApiResponse<T> {
           statusCode = lvError?.statusCode ?? StatusCode.unknownError;
           break;
         default:
-          message = error.error is SocketException
-              ? StatusMessage.socketError
-              : StatusMessage.unknownError;
+          message = error.error is SocketException ? StatusMessage.socketError : StatusMessage.unknownError;
           statusCode = StatusCode.unknownError;
           break;
       }
@@ -68,8 +65,7 @@ class ApiErrorResponse<T> extends ApiResponse<T> with _$ApiErrorResponse<T> {
 }
 
 @Freezed(genericArgumentFactories: true)
-class ApiSuccessResponse<T> extends ApiResponse<T>
-    with _$ApiSuccessResponse<T> {
+class ApiSuccessResponse<T> extends ApiResponse<T> with _$ApiSuccessResponse<T> {
   factory ApiSuccessResponse({
     required T data,
   }) = _ApiSuccessResponse;

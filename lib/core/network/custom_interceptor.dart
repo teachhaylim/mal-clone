@@ -41,10 +41,4 @@ class CustomInterceptor extends Interceptor {
     // NOTE: Add custom intercept here
     super.onResponse(response, handler);
   }
-
-  @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
-    logger.e(err);
-    super.onError(err, handler);
-  }
 }

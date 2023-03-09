@@ -42,7 +42,7 @@ class _HomeGenreSectionState extends State<HomeGenreSection> {
             buildWhen: (pre, cur) => cur is HomeScreenGenresLoadedState || (cur is HomeScreenLoadingState && cur.section == HomeScreenSectionEnum.genre),
             builder: (context, state) {
               if (state is HomeScreenLoadingState && state.section == HomeScreenSectionEnum.genre) {
-                return CustomSkeletonLoading.boxSkeleton(context: context, paddingLeft: 16, paddingRight: 16, rounded: 13);
+                return CustomSkeletonLoading.boxSkeleton(paddingLeft: 16, paddingRight: 16, rounded: 13);
               }
 
               if (state is HomeScreenGenresLoadedState) {

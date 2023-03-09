@@ -30,7 +30,6 @@ class _HomeMainBannerState extends State<HomeMainBanner> {
       builder: (context, state) {
         if (state is HomeScreenLoadingState && state.section == HomeScreenSectionEnum.topAnime) {
           return CustomSkeletonLoading.boxSkeleton(
-            context: context,
             rounded: 13,
             height: 200,
             paddingLeft: 16,

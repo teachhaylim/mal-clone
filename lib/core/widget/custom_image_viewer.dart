@@ -36,6 +36,8 @@ class _CustomImageViewerState extends State<CustomImageViewer> {
       width: width,
       height: height,
       fit: fit,
+      memCacheWidth: (MediaQuery.of(context).size.width / 1.5).round(),
+      maxWidthDiskCache: (MediaQuery.of(context).size.width / 1.5).round(),
       errorWidget: (context, url, extra) => const Center(
         child: Icon(Icons.error_outline_rounded),
       ),
