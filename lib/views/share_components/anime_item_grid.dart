@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mal_clone/core/di.dart';
+import 'package:mal_clone/core/navigation/routes.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
@@ -22,9 +24,7 @@ class _AnimeItemGridState extends State<AnimeItemGrid> {
     anime = widget.anime;
   }
 
-  void _onAnimeTap(AnimeDto anime) {
-    logger.i(anime);
-  }
+  void _onAnimeTap(AnimeDto anime) => Get.toNamed(AppRoutes.animeDetailScreen, arguments: anime.malId);
 
   @override
   Widget build(BuildContext context) {

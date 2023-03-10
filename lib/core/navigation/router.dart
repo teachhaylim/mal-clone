@@ -1,4 +1,5 @@
 import 'package:mal_clone/core/navigation/routes.dart';
+import 'package:mal_clone/views/anime_detail/anime_detail.screen.dart';
 import 'package:mal_clone/views/change_theme/change_theme.screen.dart';
 import 'package:mal_clone/views/current_airing/current_airing.screen.dart';
 import 'package:mal_clone/views/genre_list/genre_list.screen.dart';
@@ -13,5 +14,6 @@ class AppRouter {
     GetPage(name: AppRoutes.currentAiringScreen, page: () => const CurrentAiringScreen()),
     GetPage(name: AppRoutes.searchScreen, page: () => const SearchScreen()),
     GetPage(name: AppRoutes.genreListScreen, page: () => const GenreListScreen()),
+    GetPage(name: AppRoutes.animeDetailScreen, page: () => const AnimeDetailScreen()),
   ];
 }

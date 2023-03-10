@@ -4,8 +4,8 @@ import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 import 'package:mal_clone/utils/function.dart';
 
-class RandomStreamingServicesSection extends StatelessWidget {
-  const RandomStreamingServicesSection({Key? key, required this.streamingServices}) : super(key: key);
+class AnimeStreamingServices extends StatelessWidget {
+  const AnimeStreamingServices({Key? key, required this.streamingServices}) : super(key: key);
 
   final List<StreamingServiceDto> streamingServices;
 

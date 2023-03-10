@@ -3,25 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:mal_clone/core/config/constant.dart';
-import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
-import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/views/random/bloc/random.bloc.dart';
 import 'package:mal_clone/views/random/components/skeleton_loading.dart';
-import 'package:mal_clone/views/random/section/broadcast_info.section.dart';
-import 'package:mal_clone/views/random/section/characters.section.dart';
-import 'package:mal_clone/views/random/section/header_info.section.dart';
-import 'package:mal_clone/views/random/section/info.section.dart';
 import 'package:mal_clone/views/random/section/initial.section.dart';
-import 'package:mal_clone/views/random/section/link_info.section.dart';
-import 'package:mal_clone/views/random/section/media_info.section.dart';
-import 'package:mal_clone/views/random/section/relations.section.dart';
-import 'package:mal_clone/views/random/section/stats_info.section.dart';
-import 'package:mal_clone/views/random/section/streaming_services.section.dart';
+import 'package:mal_clone/views/share_components/broadcast_info.dart';
+import 'package:mal_clone/views/share_components/characters.dart';
+import 'package:mal_clone/views/share_components/header_info.dart';
+import 'package:mal_clone/views/share_components/info.dart';
+import 'package:mal_clone/views/share_components/link_info.dart';
+import 'package:mal_clone/views/share_components/media_info.dart';
+import 'package:mal_clone/views/share_components/relations.dart';
+import 'package:mal_clone/views/share_components/stats_info.dart';
+import 'package:mal_clone/views/share_components/streaming_services.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class RandomScreen extends StatefulWidget {
@@ -83,6 +80,7 @@ class _SearchScreenState extends State<RandomScreen> {
               );
             }
           },
+          // buildWhen: (pre, cur) => cur is! RandomErrorState || cur is! RandomLoadingState,
           builder: (context, state) {
             if (state is RandomInitialState) {
               return RandomInitialSection();
@@ -108,14 +106,15 @@ class _SearchScreenState extends State<RandomScreen> {
                   children: [
                     ValueListenableBuilder<PaletteGenerator?>(
                       valueListenable: backdropColorNotifier,
-                      builder: (context, value, widget) => Container(
+                      builder: (context, value, widget) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
                         height: MediaQuery.of(context).size.height / 1.2,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              value?.vibrantColor?.color.withOpacity(0.8) ?? Colors.transparent,
+                              value?.vibrantColor?.color.withOpacity(0.8) ?? Colors.white.withOpacity(0.8),
                               (Get.isDarkMode ? Colors.black : Colors.white).withOpacity(0.8),
                             ],
                           ),
@@ -129,7 +128,7 @@ class _SearchScreenState extends State<RandomScreen> {
                           child: Center(
                             child: Container(
                               margin: const EdgeInsets.only(top: DesignSystem.spacing16),
-                              height: 250,
+                              height: 280,
                               width: 180,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -147,15 +146,15 @@ class _SearchScreenState extends State<RandomScreen> {
                             ),
                           ),
                         ),
-                        RandomHeaderInfoSection(anime: anime),
-                        RandomInfoSection(anime: anime),
-                        RandomStatsInfoSection(anime: anime),
-                        RandomBroadcastInfoSection(anime: anime),
-                        RandomMediaInfoSection(anime: anime),
-                        RandomStreamingServicesSection(streamingServices: streamingServices),
-                        RandomRelationsSection(relations: relations),
-                        RandomCharactersSection(characters: characters),
-                        RandomLinkInfoSection(anime: anime),
+                        AnimeHeaderInfo(anime: anime),
+                        AnimeInfo(anime: anime),
+                        AnimeStatsInfo(anime: anime),
+                        AnimeBroadcastInfo(anime: anime),
+                        AnimeMediaInfo(anime: anime),
+                        AnimeStreamingServices(streamingServices: streamingServices),
+                        AnimeRelations(relations: relations),
+                        AnimeCharacters(characters: characters),
+                        AnimeLinkInfo(anime: anime),
                         const SizedBox(height: DesignSystem.spacing16),
                       ],
                     ),
@@ -166,7 +165,7 @@ class _SearchScreenState extends State<RandomScreen> {
 
             if (state is RandomErrorState) {
               return Center(
-                child: Text(state.error.message),
+                child: Text(state.error.message, textAlign: TextAlign.center),
               );
             }
 

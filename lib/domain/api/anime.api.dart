@@ -64,7 +64,7 @@ abstract class AnimeApi {
     @Path("id") required String animeId,
   });
 
-  @GET("anime/{id}/characters")
+  @GET("anime/{id}/episodes")
   Future<BasePaginationResDto<EpisodeDto>> getAnimeEpisodes({
     @Path("id") required String animeId,
     @Query("page") int? page = 1,

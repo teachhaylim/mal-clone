@@ -10,16 +10,7 @@ import 'package:mal_clone/utils/function.dart';
 Future<void> showCharacterInfoSheet({required BuildContext context, required CharacterDto character}) {
   return showModalBottomSheet(
     context: context,
-    constraints: BoxConstraints(
-      maxHeight: MediaQuery.of(context).size.height * 0.8,
-    ),
     isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(12),
-        topRight: Radius.circular(12),
-      ),
-    ),
     builder: (context) => CharacterInfoContent(character: character),
   );
 }

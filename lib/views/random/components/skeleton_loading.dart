@@ -12,7 +12,7 @@ class RandomSkeletonLoading extends StatelessWidget {
         children: [
           SafeArea(
             child: Container(
-              padding: const EdgeInsets.only(top: DesignSystem.spacing8),
+              padding: const EdgeInsets.only(top: DesignSystem.spacing16),
               child: CustomSkeletonLoading.boxSkeleton(
                 height: 250,
                 width: 180,

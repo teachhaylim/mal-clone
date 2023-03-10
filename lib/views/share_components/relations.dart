@@ -5,8 +5,8 @@ import 'package:mal_clone/data/enums/relation.enum.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
 import 'package:mal_clone/utils/function.dart';
 
-class RandomRelationsSection extends StatelessWidget {
-  const RandomRelationsSection({Key? key, required this.relations}) : super(key: key);
+class AnimeRelations extends StatelessWidget {
+  const AnimeRelations({Key? key, required this.relations}) : super(key: key);
 
   final List<RelationDto> relations;
 

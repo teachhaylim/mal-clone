@@ -12,8 +12,7 @@ class MainScaffold extends StatefulWidget {
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
-class _MainScaffoldState extends State<MainScaffold>
-    with TickerProviderStateMixin {
+class _MainScaffoldState extends State<MainScaffold> with TickerProviderStateMixin {
   int currentPageIndex = 0;
 
   @override
@@ -32,6 +31,7 @@ class _MainScaffoldState extends State<MainScaffold>
         onDestinationSelected: (int index) {
           SystemChrome.setSystemUIOverlayStyle(
             SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
               statusBarIconBrightness: Brightness.light,
               systemStatusBarContrastEnforced: index == 1,
             ),

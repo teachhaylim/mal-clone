@@ -9,6 +9,12 @@ class AppLocale {
   static const String seeMore = "See More";
   static const String seeLess = "See Less";
   static const String noInfoAvailable = "No info available";
+  static const String info = "Info";
+  static const String ok = "Ok";
+  static const String cancel = "Cancel";
+  static const String close = "Close";
+  static const String done = "Done";
+  static const String pictures = "Pictures";
 
   //! Error
 
@@ -32,6 +38,7 @@ class AppLocale {
   static const String homeSeasonalAnimeText = "Seasonal Anime";
   static const String homeTopAnimeText = "Top Anime of all time";
   static const String homeBrowseByAiringDateText = "Browse by airing date";
+  static const String airingDateText = "Airing Date";
 
   //! Current Airing Screen
   static const String currentAiringTitle = "Current Airing";
@@ -76,4 +83,10 @@ class AppLocale {
   static const String charactersText = "Characters";
   static const String voiceActorsText = "Voice Actors";
   static const String allCharactersText = "All Characters";
+
+  //! Anime Detail Screen
+  static const String extraInfoText = "Extra Info";
+  static const String viewEpisodesText = "View Episodes";
+  static const String viewTrailerText = "View Trailer";
+  static const String viewPicturesText = "View Pictures";
 }

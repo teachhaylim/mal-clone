@@ -9,16 +9,7 @@ import 'package:mal_clone/views/share_components/bottom_sheets/character_bottom_
 Future<void> showAllCharactersSheet({required BuildContext context, required List<CharacterDto> characters}) {
   return showModalBottomSheet(
     context: context,
-    constraints: BoxConstraints(
-      maxHeight: MediaQuery.of(context).size.height * 0.8,
-    ),
     isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(12),
-        topRight: Radius.circular(12),
-      ),
-    ),
     builder: (context) => CharacterAllContent(characters: characters),
   );
 }

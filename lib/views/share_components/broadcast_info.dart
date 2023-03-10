@@ -6,8 +6,8 @@ import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/random/components/row_item.dart';
 
-class RandomBroadcastInfoSection extends StatelessWidget {
-  const RandomBroadcastInfoSection({super.key, required this.anime});
+class AnimeBroadcastInfo extends StatelessWidget {
+  const AnimeBroadcastInfo({super.key, required this.anime});
 
   final AnimeDto anime;
 

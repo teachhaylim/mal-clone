@@ -3,30 +3,18 @@ import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 
 class CustomSimpleDialog {
-  static void showMessageDialog(
-      {required BuildContext context,
-      String? title,
-      required String message,
-      String? positiveButtonTitle}) async {
+  static void showMessageDialog({required BuildContext context, String title = AppLocale.info, required String message, String positiveButtonTitle = AppLocale.ok}) async {
     return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title ?? "AlertDialog Title"),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: [
-                Text(message),
-              ],
-            ),
-          ),
+          title: Text(title),
+          content: Text(message),
           actions: [
             TextButton(
-              child: Text(positiveButtonTitle ?? "Approve"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              child: Text(positiveButtonTitle),
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         );

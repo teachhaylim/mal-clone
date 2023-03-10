@@ -4,8 +4,8 @@ import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/utils/custom_url_launcher.dart';
 
-class RandomLinkInfoSection extends StatelessWidget {
-  const RandomLinkInfoSection({super.key, required this.anime});
+class AnimeLinkInfo extends StatelessWidget {
+  const AnimeLinkInfo({super.key, required this.anime});
 
   final AnimeDto anime;
 

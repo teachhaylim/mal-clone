@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
+import 'package:mal_clone/core/navigation/routes.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/core/widget/custom_loading_indicator.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
@@ -59,9 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _handleLoadMore() => _scrollController.isBottom && searchBloc.state.hasMore ? searchBloc.add(const SearchLoadMoreEvent()) : null;
 
-  void _onAnimeTap(AnimeDto anime) {
-    logger.i(anime);
-  }
+  void _onAnimeTap(AnimeDto anime) => Get.toNamed(AppRoutes.animeDetailScreen, arguments: anime.malId);
 
   @override
   Widget build(BuildContext context) {

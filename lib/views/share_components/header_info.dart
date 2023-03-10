@@ -4,8 +4,8 @@ import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/share_components/star_rating.dart';
 
-class RandomHeaderInfoSection extends StatelessWidget {
-  const RandomHeaderInfoSection({super.key, required this.anime});
+class AnimeHeaderInfo extends StatelessWidget {
+  const AnimeHeaderInfo({Key? key, required this.anime}) : super(key: key);
 
   final AnimeDto anime;
 

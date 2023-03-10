@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +30,7 @@ class RandomBloc extends Bloc<RandomEvent, RandomState> {
     // animeId = data[Random().nextInt(data.length)];
 
     final res = await _mainRepo.getRandomAnime();
-    // final res = await _animeRepo.getAnimeById(animeId: 11); //NOTE: failed to map error message
-    // final res = await _animeRepo.getAnimeById(animeId: animeId);
+    // final res = await _animeRepo.getAnimeById(animeId: 30144);
 
     if (res is ApiErrorResponse) {
       return emit(RandomErrorState(error: (res as ApiErrorResponse).toCustomError));
@@ -42,9 +39,20 @@ class RandomBloc extends Bloc<RandomEvent, RandomState> {
     final animeData = (res as ApiSuccessResponse<AnimeDto>).data;
     animeId = animeData.malId ?? -1;
 
+    await Future.delayed(Duration(seconds: 1), null);
+
     final streamingServicesRes = await _animeRepo.getAnimeStreamingServices(animeId: animeId);
     final relationsRes = await _animeRepo.getAnimeRelations(animeId: animeId);
+
+    await Future.delayed(Duration(seconds: 1), null);
+
     final charactersRes = await _animeRepo.getAnimeCharacters(animeId: animeId);
+
+    if (streamingServicesRes is ApiErrorResponse) return emit(RandomErrorState(error: (streamingServicesRes as ApiErrorResponse).toCustomError));
+
+    if (relationsRes is ApiErrorResponse) return emit(RandomErrorState(error: (relationsRes as ApiErrorResponse).toCustomError));
+
+    if (charactersRes is ApiErrorResponse) return emit(RandomErrorState(error: (charactersRes as ApiErrorResponse).toCustomError));
 
     emit(RandomLoadedState(
       anime: animeData,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
@@ -8,8 +7,8 @@ import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/share_components/bottom_sheets/character_bottom_sheet/character_all_bottom_sheet.dart';
 import 'package:mal_clone/views/share_components/bottom_sheets/character_bottom_sheet/character_info.bottom_sheet.dart';
 
-class RandomCharactersSection extends StatelessWidget {
-  const RandomCharactersSection({Key? key, required this.characters}) : super(key: key);
+class AnimeCharacters extends StatelessWidget {
+  const AnimeCharacters({Key? key, required this.characters}) : super(key: key);
 
   final List<CharacterDto> characters;
 

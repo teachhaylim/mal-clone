@@ -5,8 +5,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 var options = BaseOptions(
   baseUrl: AppConstant.baseUrl,
-  connectTimeout: 60000,
-  receiveTimeout: 60000,
+  connectTimeout: 20000,
+  receiveTimeout: 20000,
 );
 Dio dio = Dio(options)
   ..interceptors.add(PrettyDioLogger(

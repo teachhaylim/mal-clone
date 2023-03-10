@@ -4,8 +4,8 @@ import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/views/random/components/row_items.dart';
 
-class RandomMediaInfoSection extends StatelessWidget {
-  const RandomMediaInfoSection({super.key, required this.anime});
+class AnimeMediaInfo extends StatelessWidget {
+  const AnimeMediaInfo({super.key, required this.anime});
 
   final AnimeDto anime;
 

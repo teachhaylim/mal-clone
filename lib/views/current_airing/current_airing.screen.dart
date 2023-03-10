@@ -8,6 +8,7 @@ import 'package:mal_clone/core/widget/custom_loading_indicator.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/extensions/misc.ext.dart';
 import 'package:mal_clone/views/current_airing/bloc/current_airing.bloc.dart';
+import 'package:mal_clone/views/current_airing/components/airing_filter.dialog.dart';
 import 'package:mal_clone/views/share_components/anime_item_grid.dart';
 
 class CurrentAiringScreen extends StatefulWidget {
@@ -53,57 +54,13 @@ class _CurrentAiringScreenState extends State<CurrentAiringScreen> {
           ),
           actions: [
             IconButton(
-              onPressed: () async {
-                //TODO: move to outside file
-                final result = await showModalBottomSheet<int>(
-                  context: context,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
-                  ),
-                  builder: (context) {
-                    return Container(
-                      padding: const EdgeInsets.only(top: 16, bottom: 0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16, top: 8),
-                              child: Text("Airing Date", style: Theme.of(context).textTheme.titleMedium),
-                            ),
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: AppConstant.airingDays.length,
-                              separatorBuilder: (context, index) => const SizedBox(height: 0),
-                              itemBuilder: (context, index) => ListTile(
-                                dense: true,
-                                onTap: () => Navigator.of(context).pop(index),
-                                leading: Radio(
-                                  value: AppConstant.airingDays[index],
-                                  groupValue: AppConstant.airingDays[airingDayIndex],
-                                  onChanged: (value) {
-                                    if (value == null) return;
-                                    Navigator.of(context).pop(AppConstant.airingDays.indexOf(value));
-                                  },
-                                ),
-                                title: Text(AppConstant.airingDays[index]),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-
-                if (result != null) {
-                  setState(() => airingDayIndex = result);
-                  currentAiringBloc.add(CurrentAiringGetAiringEvent(day: AppConstant.airingDays[airingDayIndex].toLowerCase()));
-                }
+              onPressed: () {
+                showAiringFilterDialog(context: context, initialIndex: airingDayIndex).then((value) {
+                  if (value != null) {
+                    setState(() => airingDayIndex = value);
+                    currentAiringBloc.add(CurrentAiringGetAiringEvent(day: AppConstant.airingDays[airingDayIndex].toLowerCase()));
+                  }
+                });
               },
               icon: const Icon(Icons.filter_alt_rounded),
             ),
