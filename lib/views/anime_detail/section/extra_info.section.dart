@@ -3,6 +3,7 @@ import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/utils/custom_url_launcher.dart';
+import 'package:mal_clone/views/anime_detail/bottom_sheet/episodes/episodes.bottom_sheet.dart';
 import 'package:mal_clone/views/anime_detail/bottom_sheet/pictures/picture.bottom_sheet.dart';
 
 class AnimeDetailExtraInfoSection extends StatelessWidget {
@@ -14,8 +15,8 @@ class AnimeDetailExtraInfoSection extends StatelessWidget {
     CustomUrlLauncher.launch(url: anime.trailer?.url);
   }
 
-  void _onViewEpisodes() {
-    print(">> view episodes");
+  void _onViewEpisodes(BuildContext context) {
+    showEpisodesSheet(context: context, anime: anime);
   }
 
   void _onViewPicture(BuildContext context) {
@@ -41,7 +42,7 @@ class AnimeDetailExtraInfoSection extends StatelessWidget {
           ),
           const SizedBox(height: DesignSystem.spacing4),
           ListTile(
-            onTap: _onViewEpisodes,
+            onTap: () => _onViewEpisodes(context),
             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
             style: ListTileStyle.list,
             leading: Icon(Icons.tv_rounded),

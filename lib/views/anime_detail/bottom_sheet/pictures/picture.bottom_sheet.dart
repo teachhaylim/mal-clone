@@ -1,12 +1,18 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:mal_clone/core/dialog/simple_dialog.dart';
 import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
 import 'package:mal_clone/core/widget/custom_photo_viewer.dart';
+import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
+import 'package:mal_clone/data/models/image/image/image.dto.dart';
+import 'package:mal_clone/views/anime_detail/bottom_sheet/pictures/bloc/picture.bottom_sheet.bloc.dart';
 
 Future<void> showPictureSheet({required BuildContext context, required AnimeDto anime}) {
   return showModalBottomSheet(
@@ -30,34 +36,24 @@ class PicturesContent extends StatefulWidget {
 class _PicturesContentState extends State<PicturesContent> {
   late final AnimeDto anime;
   final int crossAxisCount = 3;
-  final List<String> images = [
-    "https://cdn.myanimelist.net/images/anime/1/20l.jpg",
-    "https://cdn.myanimelist.net/images/anime/7/4289l.jpg",
-    "https://cdn.myanimelist.net/images/anime/7/4641l.jpg",
-    "https://cdn.myanimelist.net/images/anime/4/4644l.jpg",
-    "https://cdn.myanimelist.net/images/anime/13/17405l.jpg",
-    "https://cdn.myanimelist.net/images/anime/6/23162l.jpg",
-    "https://cdn.myanimelist.net/images/anime/1359/111463l.jpg",
-    "https://cdn.myanimelist.net/images/anime/1813/119179l.jpg",
-    "https://cdn.myanimelist.net/images/anime/1115/132764l.jpg",
-  ];
+  late final PictureBottomSheetBloc pictureBottomSheetBloc;
 
-  List<Widget> get generateRandomTiles {
+  List<Widget> generateRandomTiles(List<ImageDto> images) {
     final length = images.length;
     Random random = Random();
     List<StaggeredGridTile> _staggeredTiles = [];
 
     for (int index = 0; index < length; index++) {
-      String image = images[index];
+      ImageDto image = images[index];
       num mainAxisCellCount = 0;
       double temp = random.nextDouble();
 
       if (temp > 0.6) {
-        mainAxisCellCount = temp + 0.5;
+        mainAxisCellCount = temp + 0.6;
       } else if (temp < 0.3) {
-        mainAxisCellCount = temp + 0.9;
+        mainAxisCellCount = temp + 1.0;
       } else {
-        mainAxisCellCount = temp + 0.7;
+        mainAxisCellCount = temp + 0.8;
       }
 
       _staggeredTiles.add(StaggeredGridTile.count(
@@ -66,10 +62,10 @@ class _PicturesContentState extends State<PicturesContent> {
         child: SizedBox(
           height: double.infinity,
           child: GestureDetector(
-            onTap: () => _onViewImages(initialIndex: index),
+            onTap: () => _onViewImages(images: images, initialIndex: index),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(DesignSystem.radius8),
-              child: CustomImageViewer(url: image),
+              child: CustomImageViewer(url: image.jpg?.largeImageUrl),
             ),
           ),
         ),
@@ -79,9 +75,9 @@ class _PicturesContentState extends State<PicturesContent> {
     return _staggeredTiles;
   }
 
-  void _onViewImages({int initialIndex = 0}) {
+  void _onViewImages({required List<ImageDto> images, int initialIndex = 0}) {
     showPhotoViewer(
-      images: images,
+      images: images.map((e) => e.jpg?.largeImageUrl).whereNotNull().toList(),
       initialIndex: initialIndex,
       context: context,
     );
@@ -91,30 +87,58 @@ class _PicturesContentState extends State<PicturesContent> {
   void initState() {
     super.initState();
     anime = widget.anime;
+    pictureBottomSheetBloc = PictureBottomSheetBloc(animeId: anime.malId ?? -1)..add(const PictureBottomSheetGetImagesEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
-      padding: const EdgeInsets.only(left: DesignSystem.spacing16, right: DesignSystem.spacing16, top: DesignSystem.spacing16),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocale.pictures,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
-            ),
-            const SizedBox(height: DesignSystem.spacing8),
-            StaggeredGrid.count(
-              crossAxisCount: crossAxisCount,
-              mainAxisSpacing: images.length.toDouble(),
-              crossAxisSpacing: DesignSystem.spacing8,
-              children: generateRandomTiles,
-            ),
-            const SizedBox(height: DesignSystem.spacing16),
-          ],
+    return BlocProvider(
+      create: (context) => pictureBottomSheetBloc,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.8,
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.only(left: DesignSystem.spacing16, right: DesignSystem.spacing16, top: DesignSystem.spacing16),
+        child: BlocConsumer<PictureBottomSheetBloc, PictureBottomSheetState>(
+          listener: (context, state) {
+            if (state is PictureBottomSheetErrorState) {
+              return CustomSimpleDialog.showMessageDialog(
+                context: context,
+                message: state.error.message,
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is PictureBottomSheetLoadingState) {
+              return CustomSkeletonLoading.boxSkeleton(rounded: DesignSystem.radius8);
+            }
+
+            if (state is PictureBottomSheetLoadedState) {
+              final images = state.images;
+
+              if (images.isEmpty) {
+                return Center(
+                  child: Text(AppLocale.noInfoAvailable),
+                );
+              }
+
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StaggeredGrid.count(
+                      crossAxisCount: crossAxisCount,
+                      mainAxisSpacing: images.length.toDouble(),
+                      crossAxisSpacing: DesignSystem.spacing8,
+                      children: generateRandomTiles(images),
+                    ),
+                    const SizedBox(height: DesignSystem.spacing16),
+                  ],
+                ),
+              );
+            }
+
+            return const SizedBox.shrink();
+          },
         ),
       ),
     );

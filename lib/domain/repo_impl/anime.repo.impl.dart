@@ -9,6 +9,7 @@ import 'package:mal_clone/core/network/api_response.dart';
 import 'package:mal_clone/data/models/character/character.dto.dart';
 import 'package:mal_clone/data/models/episode/episode.dto.dart';
 import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
+import 'package:mal_clone/data/models/image/image/image.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
 import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
@@ -128,6 +129,18 @@ class AnimeRepoImpl extends AnimeRepo {
     try {
       final res = await animeApi.getAnimeEpisodes(animeId: animeId.toString(), page: page);
       return ApiSuccessResponse(data: res);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<List<ImageDto>>> getAnimeImages({required int animeId}) async {
+    try {
+      final res = await animeApi.getAnimeImages(animeId: animeId.toString());
+      return ApiSuccessResponse(data: res.data);
     } on DioError catch (error) {
       return ApiResponse.parseDioError(error: error);
     } catch (error) {

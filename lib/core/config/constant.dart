@@ -3,4 +3,5 @@ class AppConstant {
   static List<String> airingDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   static String randomUnsplashImage = "https://source.unsplash.com/random";
   static String placeholderImageUrl = "https://via.placeholder.com/300";
+  static double scrollOffset = 0.7;
 }

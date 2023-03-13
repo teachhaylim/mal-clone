@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:get/get.dart';
 import 'package:mal_clone/core/dialog/simple_dialog.dart';
+import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_button.dart';
 import 'package:mal_clone/core/widget/custom_image_viewer.dart';
@@ -182,8 +183,18 @@ class _AnimeDetailScreenState extends State<AnimeDetailScreen> {
             }
 
             if (state is AnimeDetailErrorState) {
-              return Center(
-                child: Text(state.error.message),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(state.error.message),
+                  const SizedBox(height: DesignSystem.spacing8, width: double.infinity),
+                  TextButton.icon(
+                    onPressed: () => Get.back(),
+                    icon: Icon(Icons.arrow_back_ios_new_rounded),
+                    label: Text(AppLocale.goBack),
+                  ),
+                ],
               );
             }
 

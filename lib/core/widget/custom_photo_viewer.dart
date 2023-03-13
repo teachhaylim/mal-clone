@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mal_clone/core/di.dart';
 import 'package:mal_clone/core/widget/custom_button.dart';
 import 'package:mal_clone/core/widget/custom_loading_indicator.dart';
 import 'package:photo_view/photo_view.dart';
@@ -8,7 +11,9 @@ import 'package:photo_view/photo_view_gallery.dart';
 Future<void> showPhotoViewer({required BuildContext context, required List<String> images, required int initialIndex}) {
   return showModalBottomSheet(
     context: context,
+    barrierColor: Colors.transparent,
     isScrollControlled: true,
+    shape: RoundedRectangleBorder(),
     constraints: BoxConstraints(
       maxHeight: MediaQuery.of(context).size.height,
     ),
@@ -50,59 +55,63 @@ class _CustomPhotoViewerState extends State<CustomPhotoViewer> {
 
   @override
   Widget build(BuildContext context) {
+    logger.i(MediaQueryData.fromWindow(window).padding.top);
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: onClose,
-      child: Container(
-        // constraints: BoxConstraints.expand(
-        //   height: MediaQuery.of(context).size.height,
-        // ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            PhotoViewGallery.builder(
-              pageController: controller,
-              scrollPhysics: const BouncingScrollPhysics(),
-              itemCount: imageUrls.length,
-              backgroundDecoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              onPageChanged: (index) => currentIndex.value = index + 1,
-              loadingBuilder: (context, event) => Container(
-                color: Colors.white,
-                child: Center(
-                  child: CustomLoadingIndicator.loadingIndicator,
-                ),
-              ),
-              builder: (BuildContext context, int index) {
-                return PhotoViewGalleryPageOptions(
-                  imageProvider: CachedNetworkImageProvider(imageUrls[index]),
-                  initialScale: PhotoViewComputedScale.contained,
-                  heroAttributes: PhotoViewHeroAttributes(tag: imageUrls[index]),
-                  minScale: 0.8,
-                  maxScale: 5.0,
-                );
-              },
+      child: Stack(
+        children: [
+          PhotoViewGallery.builder(
+            pageController: controller,
+            scrollPhysics: const BouncingScrollPhysics(),
+            itemCount: imageUrls.length,
+            backgroundDecoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
             ),
-            Positioned(
-              top: 28,
-              left: 0,
-              child: CustomButton.closeButton(
-                onPressed: onClose,
-                color: Colors.grey.shade300,
+            onPageChanged: (index) => currentIndex.value = index + 1,
+            loadingBuilder: (context, event) => Container(
+              color: Colors.white,
+              child: Center(
+                child: CustomLoadingIndicator.loadingIndicator,
               ),
             ),
-            ValueListenableBuilder(
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: CachedNetworkImageProvider(imageUrls[index]),
+                initialScale: PhotoViewComputedScale.contained,
+                heroAttributes: PhotoViewHeroAttributes(tag: imageUrls[index]),
+                minScale: 0.8,
+                maxScale: 5.0,
+              );
+            },
+          ),
+          Positioned(
+            top: MediaQueryData.fromWindow(window).padding.top,
+            child: CustomButton.closeButton(
+              onPressed: onClose,
+              color: Colors.grey.shade300,
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 16,
+            child: ValueListenableBuilder(
               valueListenable: currentIndex,
               builder: (context, value, widget) {
-                return Positioned(
-                  bottom: 16,
-                  child: Text("$value / ${imageUrls.length}"),
+                return Container(
+                  alignment: Alignment.bottomCenter,
+                  width: double.infinity,
+                  child: Text(
+                    "$value / ${imageUrls.length}",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 );
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

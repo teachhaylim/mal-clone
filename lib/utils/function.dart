@@ -17,3 +17,12 @@ String toDisplayText(dynamic value) {
       return "--";
   }
 }
+
+DateTime? parseDate({required String dateString}) {
+  try {
+    final date = DateTime.parse(dateString);
+    return date;
+  } catch (e) {
+    return null;
+  }
+}

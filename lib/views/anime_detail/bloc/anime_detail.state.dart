@@ -23,7 +23,7 @@ class AnimeDetailLoadedState extends AnimeDetailState {
   const AnimeDetailLoadedState({required this.anime, required this.streamingServices, required this.relations, required this.characters});
 
   @override
-  List get props => [anime];
+  List get props => [anime, streamingServices, relations, characters];
 }
 
 class AnimeDetailErrorState extends AnimeDetailState {
@@ -31,5 +31,5 @@ class AnimeDetailErrorState extends AnimeDetailState {
   const AnimeDetailErrorState({required this.error});
 
   @override
-  List get props => [];
+  List get props => [error];
 }

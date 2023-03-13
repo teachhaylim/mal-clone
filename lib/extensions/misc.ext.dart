@@ -7,6 +7,6 @@ extension ScrollControllerExt on ScrollController {
     final maxScroll = position.maxScrollExtent;
     final currentScroll = position.pixels;
 
-    return currentScroll == maxScroll;
+    return currentScroll >= maxScroll;
   }
 }

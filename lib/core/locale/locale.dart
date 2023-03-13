@@ -15,6 +15,10 @@ class AppLocale {
   static const String close = "Close";
   static const String done = "Done";
   static const String pictures = "Pictures";
+  static const String back = "Back";
+  static const String goBack = "Go Back";
+  static const String filler = "Filler";
+  static const String recap = "Recap";
 
   //! Error
 
@@ -89,4 +93,5 @@ class AppLocale {
   static const String viewEpisodesText = "View Episodes";
   static const String viewTrailerText = "View Trailer";
   static const String viewPicturesText = "View Pictures";
+  static const String allEpisodesText = "All Episodes";
 }
