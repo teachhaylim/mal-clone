@@ -93,5 +93,10 @@ class AppLocale {
   static const String viewEpisodesText = "View Episodes";
   static const String viewTrailerText = "View Trailer";
   static const String viewPicturesText = "View Pictures";
+  static const String viewStatsRatingText = "View Stats & Rating";
+  static const String viewThemeSongsText = "View Theme Songs";
   static const String allEpisodesText = "All Episodes";
+  static const String themeSongsText = "Theme Songs";
+  static const String openingText = "Opening Songs";
+  static const String endingText = "Ending Songs";
 }

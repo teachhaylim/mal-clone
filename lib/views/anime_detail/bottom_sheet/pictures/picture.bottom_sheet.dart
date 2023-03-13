@@ -12,7 +12,7 @@ import 'package:mal_clone/core/widget/custom_photo_viewer.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/data/models/image/image/image.dto.dart';
-import 'package:mal_clone/views/anime_detail/bottom_sheet/pictures/bloc/picture.bottom_sheet.bloc.dart';
+import 'package:mal_clone/views/anime_detail/bottom_sheet/bloc/common.bottom_sheet.bloc.dart';
 
 Future<void> showPictureSheet({required BuildContext context, required AnimeDto anime}) {
   return showModalBottomSheet(
@@ -36,7 +36,7 @@ class PicturesContent extends StatefulWidget {
 class _PicturesContentState extends State<PicturesContent> {
   late final AnimeDto anime;
   final int crossAxisCount = 3;
-  late final PictureBottomSheetBloc pictureBottomSheetBloc;
+  late final CommonBottomSheetBloc commonBottomSheetBloc;
 
   List<Widget> generateRandomTiles(List<ImageDto> images) {
     final length = images.length;
@@ -87,20 +87,20 @@ class _PicturesContentState extends State<PicturesContent> {
   void initState() {
     super.initState();
     anime = widget.anime;
-    pictureBottomSheetBloc = PictureBottomSheetBloc(animeId: anime.malId ?? -1)..add(const PictureBottomSheetGetImagesEvent());
+    commonBottomSheetBloc = CommonBottomSheetBloc(animeId: anime.malId ?? -1)..add(const CommonBottomSheetGetPictureEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => pictureBottomSheetBloc,
+      create: (context) => commonBottomSheetBloc,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.8,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(left: DesignSystem.spacing16, right: DesignSystem.spacing16, top: DesignSystem.spacing16),
-        child: BlocConsumer<PictureBottomSheetBloc, PictureBottomSheetState>(
+        child: BlocConsumer<CommonBottomSheetBloc, CommonBottomSheetState>(
           listener: (context, state) {
-            if (state is PictureBottomSheetErrorState) {
+            if (state is CommonBottomSheetErrorState) {
               return CustomSimpleDialog.showMessageDialog(
                 context: context,
                 message: state.error.message,
@@ -108,11 +108,11 @@ class _PicturesContentState extends State<PicturesContent> {
             }
           },
           builder: (context, state) {
-            if (state is PictureBottomSheetLoadingState) {
+            if (state is CommonBottomSheetLoadingState) {
               return CustomSkeletonLoading.boxSkeleton(rounded: DesignSystem.radius8);
             }
 
-            if (state is PictureBottomSheetLoadedState) {
+            if (state is CommonBottomSheetPictureLoadedState) {
               final images = state.images;
 
               if (images.isEmpty) {

@@ -33,7 +33,6 @@ class EpisodesBottomSheetBloc extends Bloc<EpisodesBottomSheetEvent, EpisodesBot
     final result = (res as ApiSuccessResponse<BasePaginationResDto<EpisodeDto>>).data;
     final lvTotalResults = result.pagination.item?.total ?? 0;
     final lvTotalPages = (lvTotalResults / state.limit).ceil();
-    // final lvHasMore = state.currentPage < lvTotalPages;
     final lvHasMore = result.pagination.hasNextPage;
 
     emit(state.copyWith(
@@ -55,7 +54,6 @@ class EpisodesBottomSheetBloc extends Bloc<EpisodesBottomSheetEvent, EpisodesBot
     }
 
     final result = (res as ApiSuccessResponse<BasePaginationResDto<EpisodeDto>>).data;
-    // final lvHasMore = state.currentPage < state.totalPages;
     final lvHasMore = result.pagination.hasNextPage;
 
     emit(state.copyWith(

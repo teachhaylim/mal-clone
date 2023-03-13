@@ -5,13 +5,11 @@ import 'package:mal_clone/core/locale/locale.dart';
 import 'package:mal_clone/core/theme/design_system.dart';
 import 'package:mal_clone/core/widget/custom_loading_indicator.dart';
 import 'package:mal_clone/core/widget/custom_skeleton_loading.dart';
-import 'package:mal_clone/data/enums/bloc_status.enum.dart';
 import 'package:mal_clone/data/models/anime/anime.dto.dart';
 import 'package:mal_clone/extensions/date_time.ext.dart';
 import 'package:mal_clone/extensions/misc.ext.dart';
 import 'package:mal_clone/utils/function.dart';
 import 'package:mal_clone/views/anime_detail/bottom_sheet/episodes/bloc/episodes.bottom_sheet.bloc.dart';
-import 'package:mal_clone/views/share_components/star_rating.dart';
 
 Future<void> showEpisodesSheet({required BuildContext context, required AnimeDto anime}) {
   return showModalBottomSheet(
@@ -98,6 +96,7 @@ class _EpisodesContentState extends State<EpisodesContent> {
                             isThreeLine: true,
                             visualDensity: VisualDensity(horizontal: -4, vertical: -4),
                             style: ListTileStyle.drawer,
+                            contentPadding: EdgeInsets.zero,
                             title: Text(toDisplayText(episode.title)),
                             leading: Text(toDisplayText(index + 1)),
                             trailing: TextButton.icon(

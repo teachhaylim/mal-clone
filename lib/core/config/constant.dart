@@ -4,4 +4,5 @@ class AppConstant {
   static String randomUnsplashImage = "https://source.unsplash.com/random";
   static String placeholderImageUrl = "https://via.placeholder.com/300";
   static double scrollOffset = 0.7;
+  static String youtubeSearch({required String searchQuery}) => "https://www.youtube.com/results?search_query=$searchQuery";
 }

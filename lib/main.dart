@@ -10,6 +10,8 @@ import 'package:mal_clone/core/navigation/routes.dart';
 import 'package:get/get.dart';
 
 //TODO: theme doesn't save
+//TODO: rework search anime item UI
+//TODO: rework search to support other search
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
