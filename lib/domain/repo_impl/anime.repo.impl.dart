@@ -12,6 +12,7 @@ import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/image/image/image.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
+import 'package:mal_clone/data/models/stats/stats.dto.dart';
 import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 import 'package:mal_clone/data/models/theme_song/theme_song.dto.dart';
 import 'package:mal_clone/domain/api/anime.api.dart';
@@ -153,6 +154,18 @@ class AnimeRepoImpl extends AnimeRepo {
   Future<ApiResponse<ThemeSongDto>> getAnimeThemeSongs({required int animeId}) async {
     try {
       final res = await animeApi.getAnimeThemeSongs(animeId: animeId.toString());
+      return ApiSuccessResponse(data: res.data);
+    } on DioError catch (error) {
+      return ApiResponse.parseDioError(error: error);
+    } catch (error) {
+      return ApiErrorResponse(message: error.toString());
+    }
+  }
+
+  @override
+  Future<ApiResponse<StatsDto>> getAnimeStatistics({required int animeId}) async {
+    try {
+      final res = await animeApi.getAnimeStatistics(animeId: animeId.toString());
       return ApiSuccessResponse(data: res.data);
     } on DioError catch (error) {
       return ApiResponse.parseDioError(error: error);

@@ -7,6 +7,7 @@ import 'package:mal_clone/data/models/network/base_data_list_res/base_data_list_
 import 'package:mal_clone/data/models/network/base_data_res/base_data_res.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
+import 'package:mal_clone/data/models/stats/stats.dto.dart';
 import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 import 'package:mal_clone/data/models/theme_song/theme_song.dto.dart';
 import 'package:retrofit/http.dart';
@@ -79,6 +80,11 @@ abstract class AnimeApi {
 
   @GET("anime/{id}/themes")
   Future<BaseDataResDto<ThemeSongDto>> getAnimeThemeSongs({
+    @Path("id") required String animeId,
+  });
+
+  @GET("anime/{id}/statistics")
+  Future<BaseDataResDto<StatsDto>> getAnimeStatistics({
     @Path("id") required String animeId,
   });
 }

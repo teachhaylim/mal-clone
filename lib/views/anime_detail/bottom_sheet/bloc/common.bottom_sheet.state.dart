@@ -28,10 +28,11 @@ class CommonBottomSheetPictureLoadedState extends CommonBottomSheetState {
 }
 
 class CommonBottomSheetStatsRatingLoadedState extends CommonBottomSheetState {
-  const CommonBottomSheetStatsRatingLoadedState();
+  final StatsDto stats;
+  const CommonBottomSheetStatsRatingLoadedState({required this.stats});
 
   @override
-  List get props => [];
+  List get props => [stats];
 }
 
 class CommonBottomSheetThemeSongsLoadedState extends CommonBottomSheetState {

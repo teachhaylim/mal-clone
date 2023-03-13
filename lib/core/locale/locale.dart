@@ -99,4 +99,5 @@ class AppLocale {
   static const String themeSongsText = "Theme Songs";
   static const String openingText = "Opening Songs";
   static const String endingText = "Ending Songs";
+  static const String statsRatingText = "Statistics & Rating";
 }

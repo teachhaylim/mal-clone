@@ -11,6 +11,7 @@ import 'package:mal_clone/data/models/generic_entry/generic_entry.dto.dart';
 import 'package:mal_clone/data/models/image/image/image.dto.dart';
 import 'package:mal_clone/data/models/network/base_pagination_res/base_pagination_res.dto.dart';
 import 'package:mal_clone/data/models/relation/relation.dto.dart';
+import 'package:mal_clone/data/models/stats/stats.dto.dart';
 import 'package:mal_clone/data/models/streaming_service/streaming_service.dto.dart';
 import 'package:mal_clone/data/models/theme_song/theme_song.dto.dart';
 
@@ -43,4 +44,5 @@ abstract class AnimeRepo {
   Future<ApiResponse<BasePaginationResDto<EpisodeDto>>> getAnimeEpisodes({required int animeId, int? page = 1});
   Future<ApiResponse<List<ImageDto>>> getAnimeImages({required int animeId});
   Future<ApiResponse<ThemeSongDto>> getAnimeThemeSongs({required int animeId});
+  Future<ApiResponse<StatsDto>> getAnimeStatistics({required int animeId});
 }

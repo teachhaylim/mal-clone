@@ -5,6 +5,7 @@ import 'package:mal_clone/core/error/custom_error.dart';
 import 'package:mal_clone/core/network/api_response.dart';
 import 'package:mal_clone/data/models/image/image/image.dto.dart';
 import 'package:mal_clone/data/models/song/song.dto.dart';
+import 'package:mal_clone/data/models/stats/stats.dto.dart';
 import 'package:mal_clone/data/models/theme_song/theme_song.dto.dart';
 import 'package:mal_clone/domain/repo/anime.repo.dart';
 
@@ -35,7 +36,17 @@ class CommonBottomSheetBloc extends Bloc<CommonBottomSheetEvent, CommonBottomShe
     emit(CommonBottomSheetPictureLoadedState(images: (res as ApiSuccessResponse<List<ImageDto>>).data));
   }
 
-  void _getStatsRating(CommonBottomSheetGetStatsRatingEvent event, Emitter<CommonBottomSheetState> emit) async {}
+  void _getStatsRating(CommonBottomSheetGetStatsRatingEvent event, Emitter<CommonBottomSheetState> emit) async {
+    emit(const CommonBottomSheetLoadingState());
+
+    final res = await _animeRepo.getAnimeStatistics(animeId: animeId);
+
+    if (res is ApiErrorResponse) {
+      return emit(CommonBottomSheetErrorState(error: (res as ApiErrorResponse).toCustomError));
+    }
+
+    emit(CommonBottomSheetStatsRatingLoadedState(stats: (res as ApiSuccessResponse<StatsDto>).data));
+  }
 
   void _getThemeSongs(CommonBottomSheetGetThemeSongsEvent event, Emitter<CommonBottomSheetState> emit) async {
     emit(const CommonBottomSheetLoadingState());
